@@ -30,6 +30,10 @@ const HomeScreen = () => {
   const [showCalendar, setShowCalendar] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
 
+  function onShowCalenderChange(e) {
+    setShowCalendar(e)
+  }
+
   return (
     <Background>
       <View
@@ -212,7 +216,7 @@ const HomeScreen = () => {
             bgColor={'#F0F0F0'}
             shadow={5}
           >
-            <Calendar />
+            <Calendar showCalendar={showCalendar} onShowCalenderChange={onShowCalenderChange} />
             <Button
                 w={'35%'}
                 h={'12%'}
