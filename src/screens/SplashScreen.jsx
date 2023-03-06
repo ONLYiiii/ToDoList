@@ -25,7 +25,7 @@ const SplashScreen = () => {
                 loop={false}
                 speed={2}
                 style={{marginTop: 10}}
-                onAnimationFinish={() => navigation.replace('IntroScreen')}
+                onAnimationFinish={() => navigation.replace('HomeScreen')}
             />
             </Box>
         </VStack>

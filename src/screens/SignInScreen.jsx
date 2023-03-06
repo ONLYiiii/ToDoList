@@ -21,7 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 const SignInScreen = () => {
   const navigation = useNavigation()
   const {assets} = useTheme()
-  const {imageData} = useData()
+  const {mock} = useData()
   const [show, setShow] = useState(false)
 
   return (
@@ -134,7 +134,7 @@ const SignInScreen = () => {
           }}
           borderRadius={30}
           backgroundColor={'#666AF6'}
-          onPress={()=>navigation.navigate('IntroScreen')}
+          onPress={()=>navigation.navigate('MainTabNavigator')}
         >
           เข้าสู่ระบบ
         </Button>
@@ -148,7 +148,7 @@ const SignInScreen = () => {
           justifyContent={'center'}
           w='100%'
         >
-          {imageData.map((element, index) => 
+          {mock.image.map((element, index) => 
             <Pressable
               key={index}
               _pressed={{
@@ -179,7 +179,7 @@ const SignInScreen = () => {
           )}
         </Stack>
 
-        <Stack direction={'row'} alignItems='center'>
+        <Stack direction={'row'} alignItems='center' mt={2}>
           <Text fontFamily={'Sarabun-Medium'} fontSize={18}>ยังไม่มีบัญชี?</Text>
           <Button
             p={0}

@@ -8,7 +8,11 @@ export const ICONS = {
   google: require('../assets/img/google.png'),
   arrow: require('../assets/img/arrow.png'),
   backbtn: require('../assets/img/backBtn.png'),
-  warningInput: require('../assets/img/gpp_maybe.png')
+  warningInput: require('../assets/img/gpp_maybe.png'),
+  tabIconHomeSelect: require('../assets/img/icons-home-page-1.png'),
+  tabIconHomeNoSelect: require('../assets/img/icons-home-page-2.png'),
+  tabIconSettingSelect: require('../assets/img/icons-settings-1.png'),
+  tabIconSettingNoSelect: require('../assets/img/icons-settings-2.png'),
 }
 
 export const ASSETS = {
@@ -25,9 +29,6 @@ export const ASSETS = {
   KanitBold: require('../assets/fonts/Kanit-Bold.ttf'),
 
   // background/logo
-  // Intro1: require("../assets/img/Intro1.jpg"),
-  // Intro2: require("../assets/img/Intro2.jpg"),
-  // Intro3: require("../assets/img/Intro3.jpg"),
   IntroGetStarted: require("../assets/img/IntroGetStarted.png"),
   IntroListEvent: require("../assets/img/IntroListEvent.png"),
   IntroAlert: require("../assets/img/IntroAlert.png"),
@@ -35,15 +36,6 @@ export const ASSETS = {
   loginScreen: require('../assets/img/loginScreen.png'),
   registerScreen: require('../assets/img/registerScreen.png')
 }
-
-// export const FONTS = {
-//     Sarabun_Light: 'Sarabun-Regular',
-//     Sarabun_Regular: 'Sarabun-Regular',
-//     SarabunMedium: 'Sarabun-Regular',
-//     SarabunSemiBold: 'Sarabun-Regular',
-//     SarabunExtraBold: 'Sarabun-Regular',
-//     SarabunBold: 'Sarabun-Regular',
-// }
 
 export const LINE_HEIGHTS = {
   // font lineHeight

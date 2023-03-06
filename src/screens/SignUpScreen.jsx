@@ -22,7 +22,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 const SignUpScreen = () => {
     const navigation = useNavigation()
     const {assets} = useTheme()
-    const {imageData} = useData()
+    const {mock} = useData()
     const [show, setShow] = useState(false)
   
     return (
@@ -184,7 +184,7 @@ const SignUpScreen = () => {
             justifyContent={'center'}
             w='100%'
           >
-            {imageData.map((element, index) => 
+            {mock.image.map((element, index) => 
               <Pressable
                 key={index}
                 _pressed={{
