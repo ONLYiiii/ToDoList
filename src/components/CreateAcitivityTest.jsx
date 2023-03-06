@@ -57,7 +57,7 @@ const CreateAcitivityTest = ({ route }) => {
         </TouchableOpacity>
       </View>
       <Text>ชื่อกิจกรรม</Text>
-      <Input size="sm" placeholder="ชื่อกิจกรรม" value='ช้อปปิ้ง' onChangeText={handleChangeName()} />
+      <Input size="sm" placeholder="ชื่อกิจกรรม" value='ช้อปปิ้ง' onChangeText={handleChangeName} />
       <Text>เวลาเริ่มกิจกรรม</Text>
       <Input size="sm" placeholder="เวลาเริ่มกิจกรรม" onChangeText={handleChangeTimeStart} />
       <Text>วันที่</Text>

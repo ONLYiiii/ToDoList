@@ -3,7 +3,8 @@
 import React, {useState, useContext, useReducer, createContext} from 'react';
 import {
   light,
-  mocks,
+  Image,
+  Date,
   newDateSelect,
 } from '../constants';
 import PropTypes from 'prop-types';
@@ -56,7 +57,8 @@ function expensesReducer(state, action) {
 export const DataProvider = ({ children }) => {
 
   const [theme, setTheme] = useState(light)
-  const [mock, setMock] = useState(mocks)
+  const [image, setImage] = useState(Image)
+  const [date, setDate] = useState(Date)
   const [newDate, setNewDate] = useState(newDateSelect)
 
   const [expenseState, dispatch] = useReducer(expensesReducer, Activity_DATA)
@@ -76,8 +78,10 @@ export const DataProvider = ({ children }) => {
   const contextValue = {
     theme,
     setTheme,
-    mock,
-    setMock,
+    image,
+    setImage,
+    date,
+    setDate,
     newDate,
     setNewDate,
     expenses: expenseState,

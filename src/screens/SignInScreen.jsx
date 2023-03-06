@@ -21,7 +21,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 const SignInScreen = () => {
   const navigation = useNavigation()
   const {assets} = useTheme()
-  const {mock} = useData()
+  const {image} = useData()
   const [show, setShow] = useState(false)
 
   return (
@@ -134,7 +134,7 @@ const SignInScreen = () => {
           }}
           borderRadius={30}
           backgroundColor={'#666AF6'}
-          onPress={()=>navigation.navigate('MainTabNavigator')}
+          onPress={()=>navigation.navigate('HomeScreen')}
         >
           เข้าสู่ระบบ
         </Button>
@@ -148,7 +148,7 @@ const SignInScreen = () => {
           justifyContent={'center'}
           w='100%'
         >
-          {mock.image.map((element, index) => 
+          {image.map((element, index) => 
             <Pressable
               key={index}
               _pressed={{

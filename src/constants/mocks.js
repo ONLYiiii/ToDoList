@@ -1,7 +1,7 @@
 import {THEME as light} from './light';
 import { getFormattedDate, getDateNow } from './date';
 
-export const IMAGEDATA = [
+export const imageDataSignIn = [
   {
     name: 'Facebook',
     color: '#CFDFFF',
@@ -29,10 +29,4 @@ export const selectedDate = {
 
 export const newDateSelect = {
   fullDate: getDateNow(),
-}
-
-
-export const Mock = {
-  image: IMAGEDATA,
-  date: selectedDate,
 }

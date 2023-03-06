@@ -11,7 +11,7 @@ const ModernCalendarStrip = () => {
       scrollable={true}
       daySelectionAnimation={{
         type: 'border',
-        duration: 200,
+        duration: 100,
         borderWidth: 1,
         borderHighlightColor: '#666AF6'
       }}
@@ -22,9 +22,7 @@ const ModernCalendarStrip = () => {
       disabledDateNumberStyle={{color: 'grey'}}
       dateNameStyle={{fontSize: 16}}
       dateNumberStyle={{fontSize: 16}}
-      dayContainerStyle={{width: 55, height: 55}}
-      styleWeekend={true}
-      weekendDateNumberStyle={{color:'red', backgroundColor: 'red'}}
+      dayContainerStyle={{width: 50, height: 50}}
     />
   </View>
   );

@@ -6,28 +6,29 @@ import {
   Box,
   View,
   Button,
-  FormControl,
-  Input,
   VStack,
 } from 'native-base'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { AntDesign } from '@expo/vector-icons';
 
-import { Background } from '../components'
-import Calendar from '../components/Calendar'
-import ModernCalendarStrip from '../components/ModernCalendarStrip'
+import {
+  Background,
+  Calendar,
+  TimePicker,
+  ListActivity,
+  ModernCalendarStrip,
+} from '../components'
 import { useData, useTheme } from '../hooks'
 import { useNavigation } from '@react-navigation/native';
-import ListActivity from '../components/ListActivity';
 
 const HomeScreen = () => {
   const {assets} = useTheme()
-  const {mock, expenses} = useData()
+  const {date, expenses} = useData()
   const navigation = useNavigation()
-  const [showModal, setShowModal] = useState(false);
-  // console.log(mock.date)
-  console.log(expenses)
+  // console.log(expenses)
+  console.log("count")
   const [showCalendar, setShowCalendar] = useState(false)
+  const [showTimePicker, setShowTimePicker] = useState(false)
 
   return (
     <Background>
@@ -42,7 +43,7 @@ const HomeScreen = () => {
           lineHeight={47}
           fontFamily={'Sarabun-Bold'}
         >
-          {mock.date.monthText}
+          {date.monthText}
         </Text>
         <View flexDirection={'row'}>
           <MaterialCommunityIcons 
@@ -60,11 +61,19 @@ const HomeScreen = () => {
               ModalVisiable: true
              })}
           />
+          <MaterialCommunityIcons
+            name="clock"
+            size={36}
+            color="#666AF6" 
+            onPress={() => setShowTimePicker(true)}
+          />
         </View>
       </View>
+
       {/* <DateListEvent /> */}
       <ModernCalendarStrip />
       
+      {/* List Activity */}
       <Box 
         mt={5}
         bgColor={'#fff'}
@@ -81,7 +90,7 @@ const HomeScreen = () => {
             <ListActivity key={item.id} name={item.name} timestart={item.timestart}  />
           ))}
         </VStack>
-        
+        {/* <TimePicker/> */}
       </Box>
 
       {/*  Bottom Tabs */}
@@ -217,6 +226,41 @@ const HomeScreen = () => {
                 _pressed={{
                   bgColor: 'transparent',
                   onPress: () => setShowCalendar(false),
+                  transform: [{ scale: 0.96 }]
+                }}
+            >เสร็จสิ้น</Button>
+          </Box>
+        </Modal>
+        
+        {/* Modal Time Pcker */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={showTimePicker}
+        >
+          <Box 
+            top={240}
+            height={400}
+            borderRadius={15}
+            width={"90%"}
+            alignSelf={'center'}
+            bgColor={'#F0F0F0'}
+            shadow={5}
+          >
+            <TimePicker />
+            <Button
+                w={'35%'}
+                h={'12%'}
+                bottom={3}
+                right={5}
+                position={'absolute'}
+                alignSelf={'flex-end'}
+                bgColor={'#878AF5'}
+                borderRadius={15}
+                _text={{color: '#fff', fontSize: 18, lineHeight: 33, fontFamily: 'Sarabun-SemiBold'}}
+                _pressed={{
+                  bgColor: 'transparent',
+                  onPress: () => setShowTimePicker(false),
                   transform: [{ scale: 0.96 }]
                 }}
             >เสร็จสิ้น</Button>
