@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-native/no-unused-styles */
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Button} from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -13,13 +13,15 @@ const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
   const {createModalVisiable} = route.params
   const [modalVisible, setModalVisible] = useState(false);
+  const [modal2Visible, setModal2Visible] = useState(false);
   
   useEffect(() => {
     setModalVisible(createModalVisiable)
   }, [])
 
   return (
-    <Modal animationType='slide' transparent={false} visible={modalVisible}>
+    <View>
+      <Modal animationType='slide' transparent={false} visible={modalVisible}>
 
       <View style={styles.title}>
         <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
@@ -81,10 +83,41 @@ const CreateScreen = ({ route }) => {
               <Text style={{fontSize: 15,marginTop: 5 }}>ดูหนัง</Text>
           </View>
       </View> 
-      <View style={styles.CreatelastButton}>
+      <TouchableOpacity style={styles.CreatelastButton} onPress={() => {
+        setModal2Visible(true)
+        setModalVisible(false)
+      }}>
           <Text style={{alignSelf: 'center', marginTop: 8, color: '#ffffff',fontFamily:'Sarabun-Regular',fontSize: 30}}>สร้างงาน</Text>
-      </View>
-    </Modal>
+      </TouchableOpacity>
+      </Modal>
+
+      <Modal animationType='fade' transparent={false} visible={modal2Visible}>
+        <View style={styles.Backhead}>
+          <View style={styles.head}>
+            <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>สร้าง</Text>
+            <Text style ={{fontFamily:'Sarabun-Medium',marginLeft: 5,color:'#878AF5',fontSize: 25}}>งาน</Text>
+            <TouchableOpacity 
+              onPress={() => {setModal2Visible(false); navigation.replace('HomeScreen')}} 
+              style={[styles.closeButton,{alignSelf: 'center',marginLeft: 200}]} >
+              <AntDesign name="close" size={24} color="white"/>
+            </TouchableOpacity>
+          </View>
+        </View>
+        <View style={{marginLeft: 40,flexDirection: 'row',marginTop: 15}}>
+          <View style={styles.BoxFocus}>
+            <FontAwesome5 name="shopping-cart" size={28} color="#878AF5"/>
+          </View>
+          <View style={{flexDirection: 'column'}}>
+            <Text style={{fontFamily:'Sarabun-Regular', fontSize:18,color:'#747474',marginTop: 5}}>ช้อปปิ้ง</Text>     
+            <View style={{ height: 2, backgroundColor: '#dbdbdb',width:250,alignSelf: 'flex-end',marginRight:30}}/>
+          </View>  
+        </View>
+        <View style ={styles.header}>
+          <Text style={{position: 'absolute',marginLeft: 40,fontSize: 15}}>เมื่อไหร่</Text>
+          <Text style={{position: 'absolute', marginLeft: 310,fontSize: 15}}>มากกว่า</Text>
+        </View>
+      </Modal>
+    </View>
   );
 }
 
@@ -134,6 +167,20 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     marginTop: 20,
     borderRadius: 20,
+  },
+  Backhead: {
+    width: '100%',
+    height: 50,
+    backgroundColor: "#ffffff",
+    borderBottomColor: '#dddddd',
+    borderBottomWidth: 1
+  },
+  head: {
+    marginLeft: 30,
+    flexDirection: 'row',
+  },
+  header: {
+    marginTop: 15  
   }
 });
 

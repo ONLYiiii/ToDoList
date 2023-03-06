@@ -53,6 +53,7 @@
   },
   "private": true,
   "peerDependencies": {
-    "@freakycoder/react-native-bounceable": "^1.0.3"
+    "@freakycoder/react-native-bounceable": "^1.0.3",
+    "moment": "^2.29.4"
   }
 }
