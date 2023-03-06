@@ -1,16 +1,38 @@
-import React, { useState } from 'react';
-import DatePicker from 'react-native-modern-datepicker';
+/* eslint-disable react/prop-types */
+import { useState, useEffect } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
-const TimePicker = () => {
-  const [time, setTime] = useState('');
-  console.log(time)
+import { useData } from '../hooks'
+import { getFormatDateFromCalendar } from "../utils/date";
+
+const TimePicker = ({showTimePicker,onShowTimePickerChange}) => {
+  const {mock, setMock} = useData()
+
+  const handleConfirm = (time) => {
+    console.log("A date has been picked: ",  time.toLocaleTimeString())
+    onShowTimePickerChange()
+  };
+
+  // useEffect(() => {
+  //   if (selectedDate != "") {
+  //     setMock({
+  //       date: {
+  //         day: selectedDate.split('-')[2],
+  //         monthText: getMonthText(Number(selectedDate.split('/')[1]-1)),
+  //         monthNum: selectedDate.split('/')[1],
+  //         year: selectedDate.split('/')[0],
+  //         fullDate: selectedDate,
+  //       }
+  //     })
+  //   }
+  // }, [selectedDate])
+
   return (
-    <DatePicker
-      isGregorian={true}
+    <DateTimePickerModal
+      isVisible={showTimePicker}
       mode="time"
-      current={"2023-03-05"}
-      // minuteInterval={3}
-      onTimeChange={selectedTime => setTime(selectedTime)}
+      onConfirm={handleConfirm}
+      onCancel={onShowTimePickerChange}
     />
   )
 }

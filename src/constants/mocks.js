@@ -1,5 +1,5 @@
 import {THEME as light} from './light';
-import { getFormattedDate, getDateNow } from './date';
+import { getFullDateNow, getDateNow } from '../utils/date';
 
 export const imageDataSignIn = [
   {
@@ -20,10 +20,10 @@ export const imageDataSignIn = [
 ]
 
 export const selectedDate = {
-    day: getFormattedDate().split('-')[2],
-    monthText: getFormattedDate().split('-')[1],
-    monthNum: getFormattedDate().split('-')[3],
-    year: getFormattedDate().split('-')[4],
+    day: getFullDateNow().split('-')[2],
+    monthText: getFullDateNow().split('-')[1],
+    monthNum: getFullDateNow().split('-')[3],
+    year: getFullDateNow().split('-')[4],
     fullDate: getDateNow(),
 }
 

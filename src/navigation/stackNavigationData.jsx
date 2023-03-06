@@ -9,7 +9,7 @@ import SignUpScreen from '../screens/SignUpScreen'
 import HomeScreen from '../screens/HomeScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 import CreateScreen from '../screens/CreateScreen';
-import CreateAcitivityTest from '../components/CreateAcitivityTest';
+import { CreateAcitivityTest, TimePicker } from '../components';
 
 // const headerLeftComponent = (props) => {
 //   return (
@@ -93,6 +93,13 @@ const StackNavigationData = [
     id: 8,
     name: 'CreateAcitivityTest',
     component: CreateAcitivityTest,
+    headerLeft: null,
+    headerShown: false
+  },
+  {
+    id: 9,
+    name: 'TimePicker',
+    component: TimePicker,
     headerLeft: null,
     headerShown: false
   },

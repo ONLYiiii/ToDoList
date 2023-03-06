@@ -1,4 +1,5 @@
-import {useState} from 'react'
+/* eslint-disable no-undef */
+import {useState, useCallback} from 'react'
 import { Modal } from 'react-native'
 import {
   Text,
@@ -26,12 +27,16 @@ const HomeScreen = () => {
   const {date, expenses} = useData()
   const navigation = useNavigation()
   // console.log(expenses)
-  console.log("count")
+  // console.log("count")
   const [showCalendar, setShowCalendar] = useState(false)
   const [showTimePicker, setShowTimePicker] = useState(false)
 
-  function onShowCalenderChange(e) {
-    setShowCalendar(e)
+  function onShowCalenderChange() {
+    setShowCalendar(false)
+  }
+
+  function onShowTimePickerChange() {
+    setShowTimePicker(false)
   }
 
   return (
@@ -63,7 +68,7 @@ const HomeScreen = () => {
             color="#666AF6" 
             onPress={() => navigation.navigate('CreateAcitivityTest', {
               ModalVisiable: true
-             })}
+            })}
           />
           <MaterialCommunityIcons
             name="clock"
@@ -94,7 +99,6 @@ const HomeScreen = () => {
             <ListActivity key={item.id} name={item.name} timestart={item.timestart}  />
           ))}
         </VStack>
-        {/* <TimePicker/> */}
       </Box>
 
       {/*  Bottom Tabs */}
@@ -160,7 +164,7 @@ const HomeScreen = () => {
           borderRadius={40}
         >
           <View>
-              <AntDesign name="plus" size={50} color="white" />
+            <AntDesign name="plus" size={50} color="white" />
           </View>
         </Button>
         <Button
@@ -199,13 +203,10 @@ const HomeScreen = () => {
       </Box>
 
       {/* Modal Calendar */}
-      <Modal
+      {/* <Modal
           animationType="slide"
           transparent={true}
           visible={showCalendar}
-          // onRequestClose={() => {
-          //   setShowCalendar(!showCalendar);
-          // }}
         >
           <Box 
             top={240}
@@ -216,7 +217,7 @@ const HomeScreen = () => {
             bgColor={'#F0F0F0'}
             shadow={5}
           >
-            <Calendar showCalendar={showCalendar} onShowCalenderChange={onShowCalenderChange} />
+            <Calendar />
             <Button
                 w={'35%'}
                 h={'12%'}
@@ -234,42 +235,9 @@ const HomeScreen = () => {
                 }}
             >เสร็จสิ้น</Button>
           </Box>
-        </Modal>
-        
-        {/* Modal Time Pcker */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showTimePicker}
-        >
-          <Box 
-            top={240}
-            height={400}
-            borderRadius={15}
-            width={"90%"}
-            alignSelf={'center'}
-            bgColor={'#F0F0F0'}
-            shadow={5}
-          >
-            <TimePicker />
-            <Button
-                w={'35%'}
-                h={'12%'}
-                bottom={3}
-                right={5}
-                position={'absolute'}
-                alignSelf={'flex-end'}
-                bgColor={'#878AF5'}
-                borderRadius={15}
-                _text={{color: '#fff', fontSize: 18, lineHeight: 33, fontFamily: 'Sarabun-SemiBold'}}
-                _pressed={{
-                  bgColor: 'transparent',
-                  onPress: () => setShowTimePicker(false),
-                  transform: [{ scale: 0.96 }]
-                }}
-            >เสร็จสิ้น</Button>
-          </Box>
-        </Modal>
+        </Modal> */}
+        {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
+        {showTimePicker && <TimePicker showTimePicker={showTimePicker} onShowTimePickerChange={onShowTimePickerChange} />}
     </Background>
   )
 }
