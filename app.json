@@ -24,11 +24,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.maiwailaw.client"
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "userInterfaceStyle": "automatic"
+    }
   }
 }
