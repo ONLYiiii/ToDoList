@@ -58,8 +58,8 @@ export const DataProvider = ({ children }) => {
 
   const [theme, setTheme] = useState(light)
   const [image, setImage] = useState(Image)
-  const [date, setDate] = useState(Date)
-  const [newDate, setNewDate] = useState(newDateSelect)
+  const [newDate, setNewDate] = useState(Date)
+  const [newDate2, setNewDate2] = useState(newDateSelect)
 
   const [expenseState, dispatch] = useReducer(expensesReducer, Activity_DATA)
 
@@ -80,10 +80,10 @@ export const DataProvider = ({ children }) => {
     setTheme,
     image,
     setImage,
-    date,
-    setDate,
     newDate,
     setNewDate,
+    newDate2,
+    setNewDate2,
     expenses: expenseState,
     addExpense: addExpense,
     deleteExpense: deleteExpense,

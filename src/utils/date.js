@@ -1,9 +1,8 @@
 import moment from 'moment';
-const date = new Date();
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-
+console.log(moment().format("LT"))
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }
@@ -16,8 +15,9 @@ export function getDateNow() {
   return moment().format("DD-MM-YYYY");
 }
 
-export function getMonthText(month) {
-  return `${monthNames[month]}`
+export function getMonthText(date) {
+  return `${monthNames[date]}`
+  // return `${date.toLocaleString('en-us', { month: 'long' })}`
 }
 
 export function getDataMinusDays(date, days) {
@@ -25,5 +25,5 @@ export function getDataMinusDays(date, days) {
 }
 
 export function getFormatDateFromCalendar(date) {
-  return `${date.getFullYear()}-${padTo2Digits(date.getMonth())}-${padTo2Digits(date.getDate())}`
+  return `${date.getFullYear()}-${padTo2Digits(date.getMonth()+1)}-${padTo2Digits(date.getDate())}`
 }

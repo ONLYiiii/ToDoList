@@ -15,7 +15,7 @@ import { AntDesign } from '@expo/vector-icons';
 import {
   Background,
   Calendar,
-  TimePicker,
+  ScrollTimePicker,
   ListActivity,
   ModernCalendarStrip,
 } from '../components'
@@ -24,7 +24,7 @@ import { useNavigation } from '@react-navigation/native';
 
 const HomeScreen = () => {
   const {assets} = useTheme()
-  const {date, expenses} = useData()
+  const {newDate, expenses} = useData()
   const navigation = useNavigation()
   // console.log(expenses)
   // console.log("count")
@@ -52,7 +52,7 @@ const HomeScreen = () => {
           lineHeight={47}
           fontFamily={'Sarabun-Bold'}
         >
-          {date.monthText}
+          {newDate.monthText}
         </Text>
         <View flexDirection={'row'}>
           <MaterialCommunityIcons 
@@ -74,7 +74,7 @@ const HomeScreen = () => {
             name="clock"
             size={36}
             color="#666AF6" 
-            onPress={() => setShowTimePicker(true)}
+            onPress={() => navigation.navigate('ScrollTimePicker')}
           />
         </View>
       </View>
@@ -237,7 +237,7 @@ const HomeScreen = () => {
           </Box>
         </Modal> */}
         {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
-        {showTimePicker && <TimePicker showTimePicker={showTimePicker} onShowTimePickerChange={onShowTimePickerChange} />}
+        {/* {showTimePicker && <TimePicker showTimePicker={showTimePicker} onShowTimePickerChange={onShowTimePickerChange} />} */}
     </Background>
   )
 }

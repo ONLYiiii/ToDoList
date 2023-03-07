@@ -2,11 +2,13 @@
 /* eslint-disable react-native/no-unused-styles */
 import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import { Box } from 'native-base';
 
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import ScrollTimePicker from '../components/ScrollTimePicker';
 
 // eslint-disable-next-line react/prop-types
 const CreateScreen = ({ route }) => {
@@ -92,16 +94,18 @@ const CreateScreen = ({ route }) => {
       </Modal>
 
       <Modal animationType='fade' transparent={false} visible={modal2Visible}>
-        <View style={styles.Backhead}>
-          <View style={styles.head}>
-            <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>สร้าง</Text>
-            <Text style ={{fontFamily:'Sarabun-Medium',marginLeft: 5,color:'#878AF5',fontSize: 25}}>งาน</Text>
-            <TouchableOpacity 
-              onPress={() => {setModal2Visible(false); navigation.replace('HomeScreen')}} 
-              style={[styles.closeButton,{alignSelf: 'center',marginLeft: 200}]} >
-              <AntDesign name="close" size={24} color="white"/>
-            </TouchableOpacity>
-          </View>
+        <View style={styles.title}>
+          <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
+            สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
+          </Text>
+          <TouchableOpacity 
+              onPress={() => {
+                setModalVisible(false)
+                navigation.replace('HomeScreen')
+              }} 
+              style={styles.closeButton} >
+              <AntDesign name="close" size={20} color="white"/>
+          </TouchableOpacity>
         </View>
         <View style={{marginLeft: 40,flexDirection: 'row',marginTop: 15}}>
           <View style={styles.BoxFocus}>
@@ -112,9 +116,16 @@ const CreateScreen = ({ route }) => {
             <View style={{ height: 2, backgroundColor: '#dbdbdb',width:250,alignSelf: 'flex-end',marginRight:30}}/>
           </View>  
         </View>
-        <View style ={styles.header}>
-          <Text style={{position: 'absolute',marginLeft: 40,fontSize: 15}}>เมื่อไหร่</Text>
-          <Text style={{position: 'absolute', marginLeft: 310,fontSize: 15}}>มากกว่า</Text>
+        <View style ={styles.textStartAcitity}>
+          <Text style={{fontSize: 15}}>เมื่อไหร่</Text>
+          <Text style={{fontSize: 15}}>มากกว่า</Text>
+        </View>
+        <View style={{
+          position: 'absolute',
+          marginTop: 190,
+          alignSelf: 'center'
+        }}>
+          <ScrollTimePicker />
         </View>
       </Modal>
     </View>
@@ -168,19 +179,12 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderRadius: 20,
   },
-  Backhead: {
-    width: '100%',
-    height: 50,
-    backgroundColor: "#ffffff",
-    borderBottomColor: '#dddddd',
-    borderBottomWidth: 1
-  },
-  head: {
-    marginLeft: 30,
+  textStartAcitity: {
+    width: '80%',
+    marginTop: 10,
     flexDirection: 'row',
-  },
-  header: {
-    marginTop: 15  
+    justifyContent: 'space-between',
+    alignSelf: 'center'
   }
 });
 
