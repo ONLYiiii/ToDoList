@@ -1,14 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-native/no-unused-styles */
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import { Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
-import { Input, View } from 'native-base';
+import { Input, View, ScrollView, ZStack, Box } from 'native-base';
+import { useNavigation } from '@react-navigation/native';
 
 import { AntDesign } from '@expo/vector-icons';
-import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { useNavigation } from '@react-navigation/native';
-import ScrollTimePicker from '../components/ScrollTimePicker';
+
+import { ScrollTimePicker } from '../components';
 
 // eslint-disable-next-line react/prop-types
 const CreateScreen = ({ route }) => {
@@ -17,8 +17,15 @@ const CreateScreen = ({ route }) => {
   const [modalVisible, setModalVisible] = useState(createModalVisiable);
 
   return (
-    <View>
+    <>
       <Modal animationType='fade' transparent={false} visible={modalVisible}>
+        <ScrollView 
+          showsVerticalScrollIndicator={false}
+          _contentContainerStyle={{
+            height: 'auto',
+          }}
+        >
+          
         <View style={styles.title}>
           <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
             สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
@@ -32,28 +39,103 @@ const CreateScreen = ({ route }) => {
               <AntDesign name="close" size={20} color="white"/>
           </TouchableOpacity>
         </View>
-        <View style={{marginLeft: 40,flexDirection: 'row',marginTop: 15}}>
-          <View style={styles.BoxFocus}>
-            <FontAwesome5 name="shopping-cart" size={28} color="#878AF5"/>
-          </View>
-          <View style={{flexDirection: 'column'}}>
-            <Text style={{fontFamily:'Sarabun-Regular', fontSize:18,color:'#747474',marginTop: 5}}>ช้อปปิ้ง</Text>     
-            <View style={{ height: 2, backgroundColor: '#dbdbdb',width:250,alignSelf: 'flex-end',marginRight:30}}/>
-          </View>  
-        </View>
-        <View style ={styles.textStartAcitity}>
-          <Text style={{fontSize: 15}}>เมื่อไหร่</Text>
-          <Text style={{fontSize: 15}}>มากกว่า</Text>
-        </View>
+
         <View style={{
-          position: 'absolute',
-          marginTop: 190,
+          flexDirection: 'row',
+          alignSelf: 'center',
+          alignItems: 'center',
+          width: '80%',
+          marginTop: 30,
+        }}>
+          <View style={styles.BoxFocus}>
+              <MaterialCommunityIcons name="cart" size={32} color="#878AF5"/>
+          </View>
+          <View w={'80%'}>
+            <Input
+              variant="underlined"
+              placeholder="ข้อความ"
+              placeholderTextColor={'gray.500'}
+              mt={2}
+              color={'gray.800'}
+              type={'text'}
+              borderBottomWidth={3}
+              fontSize={16}
+              focusOutlineColor={'blue.500'}
+              _focus={{borderBottomWidth: 3}}
+            />   
+          </View>
+        </View>
+      
+        <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 24}]}>
+          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>เมื่อไหร่</Text>
+          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>มากกว่า</Text>
+        </View>
+
+        <Text style={{
+          marginTop: 20,
+          fontSize: 16,
+          fontFamily:'Sarabun-Regular',
+          textAlign: 'center'
+        }}>
+          ชั่วโมง : นาที
+        </Text>
+
+        <View style={{
           alignSelf: 'center'
         }}>
-          <ScrollTimePicker />
+          <ScrollTimePicker/>
         </View>
+
+        <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 35}]}>
+          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>นานเเค่ไหน?</Text>
+          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>ระบุเอง...</Text>
+        </View>
+        
+        <ZStack mt={4} alignItems="center" justifyContent="center" style={{height: 50}}>
+          <Box
+            w={'90%'}
+            bgColor={'#878AF550'}
+            rounded="lg" alignItems={'center'}
+            justifyContent="center"
+            style={{height: 50}}
+          >
+            <Box
+              w={'95%'}
+              bgColor={'#878AF570'}
+              rounded="lg"
+              alignItems={'center'}
+              style={{height: 34}}
+            >
+              {/* เดะตรงนี้ทำให้ ข้ามไปตรงอื่นก่อน */}
+              <Text style={{fontSize: 18, fontFamily: 'Sarabun-SemiBold', color: '#fff', letterSpacing: 16}}>1 2 3 4 5 6</Text>
+            </Box>
+          </Box>
+        </ZStack>
+
+        <Box w={'80%'} bgColor={'#F1F1F1'} alignSelf={'center'} style={styles.BoxNote}>
+          <View flexDirection={'row'} bgColor={'#666AF6'} style={styles.NoteTitle}>
+            <AntDesign name="pluscircleo" size={24} color="#fff" />
+            <Text style={{
+              fontFamily:'Sarabun-Bold',
+              fontSize: 18,
+              color:'#fff',
+              marginLeft: 15
+            }}>
+              เพิ่มงานย่อย
+            </Text>
+          </View>
+          <Text style={{
+            marginLeft: 15,
+            marginTop: 10,
+            fontFamily:'Sarabun-Regular',
+            color: '#727272'
+          }}>
+            เพิ่มโน๊ต ลิ้งค์การประชุม หรือ เบอร์โทรศัพท์..
+          </Text>
+        </Box>
+        </ScrollView>
       </Modal>
-    </View>
+    </>
   );
 }
 
@@ -105,11 +187,21 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   textStartAcitity: {
-    width: '80%',
-    marginTop: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignSelf: 'center'
+  },
+  BoxNote: {
+    height: 200,
+    marginVertical: 45,
+    borderRadius: 15
+  },
+  NoteTitle: {
+    height: 40,
+    paddingLeft: 15,
+    alignItems: 'center',
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
   }
 });
 

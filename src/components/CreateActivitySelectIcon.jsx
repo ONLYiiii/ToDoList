@@ -36,7 +36,7 @@ const CreateAcitivitySelectIcon = ({ ModalVisiable, onShowSelectIcon  }) => {
         padding: 15,
         marginLeft: 20,
         fontSize: 18,
-        fontFamily:'Sarabun-Regular',
+        fontFamily:'Sarabun-Medium',
         color: '#747474',
       }}>
         ทำอะไร?

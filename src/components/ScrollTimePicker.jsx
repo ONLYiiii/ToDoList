@@ -38,7 +38,6 @@ export default function ScrollTimePicker() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
