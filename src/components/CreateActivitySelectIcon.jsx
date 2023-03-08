@@ -3,17 +3,18 @@
 // import { useState, useEffect } from 'react';
 import { Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import { Input, View } from 'native-base';
-
 import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+
+import Background from './Background';
 
 // eslint-disable-next-line react/prop-types
 const CreateAcitivitySelectIcon = ({ ModalVisiable, onShowSelectIcon  }) => {
   const navigation = useNavigation()
 
   return (
-    <>
+    <Background>
       <Modal animationType='slide' transparent={false} visible={ModalVisiable}>
 
       <View style={styles.title}>
@@ -21,12 +22,13 @@ const CreateAcitivitySelectIcon = ({ ModalVisiable, onShowSelectIcon  }) => {
           สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
         </Text>
         <TouchableOpacity 
-            onPress={() => {
-              onShowSelectIcon(false)
-              navigation.replace('HomeScreen')
-            }} 
-            style={styles.closeButton} >
-            <AntDesign name="close" size={20} color="white"/>
+          onPress={() => {
+            onShowSelectIcon(false)
+            navigation.replace('HomeScreen')
+          }} 
+          style={styles.closeButton}
+        >
+          <AntDesign name="close" size={20} color="white"/>
         </TouchableOpacity>
       </View>
 
@@ -74,7 +76,7 @@ const CreateAcitivitySelectIcon = ({ ModalVisiable, onShowSelectIcon  }) => {
           <Text style={{alignSelf: 'center', marginTop: 8, color: '#ffffff',fontFamily:'Sarabun-Regular',fontSize: 30}}>สร้างงาน</Text>
       </TouchableOpacity>
       </Modal>
-    </>
+    </Background>
   );
 }
 

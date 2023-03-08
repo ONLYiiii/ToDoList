@@ -30,3 +30,15 @@ export const selectedDate = {
 export const newTimeSelected = {
   time: getDateNow(),
 }
+
+export const iconActivity = [
+  "silverware-fork-knife",
+  "cart",
+  "run-fast",
+  "television",
+  "moon-waning-crescent",
+  "account-school-outline",
+  "controller",
+  "dumbbell",
+  "plus",
+]
