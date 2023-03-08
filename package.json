@@ -8,12 +8,8 @@
     "web": "expo start --web"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@react-native-community/datetimepicker": "^6.7.5",
-=======
     "@react-native-community/datetimepicker": "6.5.2",
     "@react-native-picker/picker": "^2.4.8",
->>>>>>> 6bace512ce5a7102be3faaeef26a803ed5c55c81
     "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/drawer": "^6.6.2",
     "@react-navigation/native": "^6.1.5",
