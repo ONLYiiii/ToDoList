@@ -1,12 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useState, useEffect } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import { useData } from '../hooks'
 import { getFormatDateFromCalendar, getMonthText } from "../utils/date";
 
 const Calendar = ({showCalendar,onShowCalenderChange}) => {
-  const {newDate, setNewDate} = useData()
+  const {setNewDate} = useData()
 
   const handleConfirm = (date) => {
     // console.log("A date has been picked: ",  getFormatDateFromCalendar(date));

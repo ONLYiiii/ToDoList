@@ -1,6 +1,5 @@
 /* eslint-disable no-undef */
-import {useState, useCallback} from 'react'
-import { Modal } from 'react-native'
+import {useState} from 'react'
 import {
   Text,
   Image,
@@ -15,12 +14,13 @@ import { AntDesign } from '@expo/vector-icons';
 import {
   Background,
   Calendar,
-  ScrollTimePicker,
   ListActivity,
   ModernCalendarStrip,
 } from '../components'
 import { useData, useTheme } from '../hooks'
 import { useNavigation } from '@react-navigation/native';
+
+import CreateAcitivitySelectIcon from '../components/CreateActivitySelectIcon';
 
 const HomeScreen = () => {
   const {assets} = useTheme()
@@ -29,14 +29,13 @@ const HomeScreen = () => {
   // console.log(expenses)
   // console.log("count")
   const [showCalendar, setShowCalendar] = useState(false)
-  const [showTimePicker, setShowTimePicker] = useState(false)
+  const [showSelectIcon, setShowSelectIcon] = useState(false)
 
   function onShowCalenderChange() {
     setShowCalendar(false)
   }
-
-  function onShowTimePickerChange() {
-    setShowTimePicker(false)
+  function onShowCreateAcititySelectIcon() {
+    setShowSelectIcon(false)
   }
 
   return (
@@ -94,9 +93,12 @@ const HomeScreen = () => {
         borderTopRightRadius={25}
         shadow={9}
       >
-        <VStack space={3}>
-          {expenses.map((item) => (
-            <ListActivity key={item.id} name={item.name} timestart={item.timestart}  />
+        <VStack>
+          {expenses.map((item, index, array) => (
+            <View key={item.id}>
+              <ListActivity name={item.name} timestart={item.timestart}  />
+              {index+1 != array.length && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
+            </View>
           ))}
         </VStack>
       </Box>
@@ -148,9 +150,7 @@ const HomeScreen = () => {
           </Text>
         </Button>
         <Button
-          onPress={() => navigation.navigate('CreateScreen', {
-           createModalVisiable: true
-          })}
+          onPress={() => setShowSelectIcon(true)}
           style={{bottom: 55}}
           backgroundColor={'#666AF6'}
           alignSelf={'center'}
@@ -203,41 +203,9 @@ const HomeScreen = () => {
       </Box>
 
       {/* Modal Calendar */}
-      {/* <Modal
-          animationType="slide"
-          transparent={true}
-          visible={showCalendar}
-        >
-          <Box 
-            top={240}
-            height={400}
-            borderRadius={15}
-            width={"90%"}
-            alignSelf={'center'}
-            bgColor={'#F0F0F0'}
-            shadow={5}
-          >
-            <Calendar />
-            <Button
-                w={'35%'}
-                h={'12%'}
-                bottom={3}
-                right={5}
-                position={'absolute'}
-                alignSelf={'flex-end'}
-                bgColor={'#878AF5'}
-                borderRadius={15}
-                _text={{color: '#fff', fontSize: 18, lineHeight: 33, fontFamily: 'Sarabun-SemiBold'}}
-                _pressed={{
-                  bgColor: 'transparent',
-                  onPress: () => setShowCalendar(false),
-                  transform: [{ scale: 0.96 }]
-                }}
-            >เสร็จสิ้น</Button>
-          </Box>
-        </Modal> */}
-        {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
-        {/* {showTimePicker && <TimePicker showTimePicker={showTimePicker} onShowTimePickerChange={onShowTimePickerChange} />} */}
+      {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
+      {/* Modal Create Activity Select Icon */}
+      {showSelectIcon && <CreateAcitivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
     </Background>
   )
 }

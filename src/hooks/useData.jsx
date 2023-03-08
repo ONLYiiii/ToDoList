@@ -4,8 +4,8 @@ import React, {useState, useContext, useReducer, createContext} from 'react';
 import {
   light,
   Image,
-  Date,
-  newDateSelect,
+  NewDate,
+  NewTime,
 } from '../constants';
 import PropTypes from 'prop-types';
 const Activity_DATA = [
@@ -20,7 +20,7 @@ const Activity_DATA = [
     id: '2',
     name: 'รับประทานอาหาร',
     timestart: "09:00",
-    dateAt: "2023-03-05",
+    dateAt: "2023-03-06",
     howlong: 60
   },
 ]
@@ -35,7 +35,7 @@ export const DataContext = createContext({
 function expensesReducer(state, action) {
   switch (action.type){
       case 'ADD' :
-          const id = new Date().toString() + Math.random().toString
+          const id = new Date().getTime().toString()
           return [{...action.payload, id: id}, ...state]
       case 'UPDATE':
           const updatableExpenseIndex = state.findIndex(
@@ -58,8 +58,8 @@ export const DataProvider = ({ children }) => {
 
   const [theme, setTheme] = useState(light)
   const [image, setImage] = useState(Image)
-  const [newDate, setNewDate] = useState(Date)
-  const [newDate2, setNewDate2] = useState(newDateSelect)
+  const [newDate, setNewDate] = useState(NewDate)
+  const [newTime, setNewTime] = useState(NewTime)
 
   const [expenseState, dispatch] = useReducer(expensesReducer, Activity_DATA)
 
@@ -82,8 +82,8 @@ export const DataProvider = ({ children }) => {
     setImage,
     newDate,
     setNewDate,
-    newDate2,
-    setNewDate2,
+    newTime,
+    setNewTime,
     expenses: expenseState,
     addExpense: addExpense,
     deleteExpense: deleteExpense,

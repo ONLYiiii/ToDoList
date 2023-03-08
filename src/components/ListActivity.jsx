@@ -4,6 +4,7 @@ import {
   Box,
   View,
   Button,
+  Divider,
 } from 'native-base'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
@@ -17,16 +18,20 @@ const ListActivity = ({name,timestart}) => {
       justifyContent={'space-between'}
     >
       <View flexDirection={'row'} alignItems={'center'}>
-        <Text fontFamily={'Sarabun-Medium'} fontSize={16}>08:00</Text>
-        <Button
-          boxSize={50}
-          borderRadius={'full'}
-          bgColor={'#878AF5'}
-          marginX={3}
-          p={1}
-        >
-          <MaterialCommunityIcons name="cart" size={30} color="#fff" />
-        </Button>
+        <Text fontFamily={'Sarabun-Medium'} fontSize={16}>{timestart}</Text>
+        <View flexDirection={'column'} alignItems={'center'}>
+          <Box
+            boxSize={50}
+            borderRadius={'full'}
+            bgColor={'#878AF5'}
+            marginX={3}
+            p={1}
+            justifyContent={'center'}
+            alignItems={'center'}
+          >
+            <MaterialCommunityIcons name="cart" size={30} color="#fff" />
+          </Box>
+        </View>
         <View
           flexDirection={'column'}
           justifyContent={'center'}

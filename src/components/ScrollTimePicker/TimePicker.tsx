@@ -110,26 +110,27 @@ export default function TimePicker({
     <View style={[styles.container, containerStyle]}>
       {timeFormat.map((timeType) => {
         switch (timeType) {
-          case TimeType.ampm:
-            return (
-              <Wheel
-                key={'am/pm'}
-                value={hour >= 12 ? 'PM' : 'AM'}
-                values={['AM', 'PM']}
-                setValue={(newValue) => {
-                  changeTimeValue(
-                    'hour',
-                    (hour % 12) + (newValue === 'PM' ? 12 : 0)
-                  );
-                }}
-                onScroll={onScroll}
-                textStyle={textStyle}
-                {...wheelProps}
-              />
-            );
+          // case TimeType.ampm:
+          //   return (
+          //     <Wheel
+          //       key={'am/pm'}
+          //       value={hour >= 12 ? 'PM' : 'AM'}
+          //       values={['AM', 'PM']}
+          //       setValue={(newValue) => {
+          //         changeTimeValue(
+          //           'hour',
+          //           (hour % 12) + (newValue === 'PM' ? 12 : 0)
+          //         );
+          //       }}
+          //       onScroll={onScroll}
+          //       textStyle={textStyle}
+          //       {...wheelProps}
+          //     />
+          //   );
 
           case TimeType.hours24:
             const use24HourSystem = timeType === TimeType.hours24;
+            // console.log(use24HourSystem)
             let displayHour = use24HourSystem ? hour : hour % 12;
             if (!use24HourSystem && displayHour === 0) displayHour = 12;
             const displayHourValue =
@@ -142,7 +143,7 @@ export default function TimePicker({
                 setValue={(newValue) => {
                   changeTimeValue(
                     'hour',
-                    (parseInt(newValue) % 12) + (hour >= 12 ? 12 : 0)
+                    (parseInt(newValue))
                   );
                 }}
                 onScroll={onScroll}

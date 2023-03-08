@@ -27,6 +27,6 @@ export const selectedDate = {
     fullDate: getDateNow(),
 }
 
-export const newDateSelect = {
-  fullDate: getDateNow(),
+export const newTimeSelected = {
+  time: getDateNow(),
 }

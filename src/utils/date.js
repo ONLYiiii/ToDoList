@@ -2,7 +2,7 @@ import moment from 'moment';
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ];
-console.log(moment().format("LT"))
+// console.log(moment().format("LT"))
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
 }

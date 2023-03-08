@@ -1,8 +1,8 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable react-native/no-unused-styles */
 import { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
-import { Box } from 'native-base';
+import { Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import { Input, View } from 'native-base';
 
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -14,86 +14,11 @@ import ScrollTimePicker from '../components/ScrollTimePicker';
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
   const {createModalVisiable} = route.params
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modal2Visible, setModal2Visible] = useState(false);
-  
-  useEffect(() => {
-    setModalVisible(createModalVisiable)
-  }, [])
+  const [modalVisible, setModalVisible] = useState(createModalVisiable);
 
   return (
     <View>
-      <Modal animationType='slide' transparent={false} visible={modalVisible}>
-
-      <View style={styles.title}>
-        <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
-          สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
-        </Text>
-        <TouchableOpacity 
-            onPress={() => {
-              setModalVisible(false)
-              navigation.replace('HomeScreen')
-            }} 
-            style={styles.closeButton} >
-            <AntDesign name="close" size={20} color="white"/>
-        </TouchableOpacity>
-      </View>
-
-      <Text style={{
-        padding: 15,
-        marginLeft: 20,
-        fontSize: 18,
-        fontFamily:'Sarabun-Regular',
-        color: '#747474',
-      }}>
-        ทำอะไร?
-      </Text>
-
-      <View style={{marginLeft: 40,flexDirection: 'row'}}>
-          <View style={styles.BoxFocus}>
-              <FontAwesome5 name="shopping-cart" size={28} color="#878AF5"/>
-          </View>
-          <Text style={{fontFamily:'Sarabun-Regular', fontSize:18,color:'#747474',marginTop: 5}}>ช้อปปิ้ง</Text>     
-      </View>
-      <View style={{ height: 2, backgroundColor: '#dbdbdb',width:250,alignSelf: 'flex-end',marginRight:30}}/>
-
-      <View style={[styles.block,{marginTop: 20,flexDirection: 'row'}]}>
-          <MaterialCommunityIcons name="silverware-fork-knife" size={30} color="#F4863C" style={{marginTop:20,marginLeft:20}} />
-          <View style={{marginLeft: 30,marginTop: 18}}>
-              <Text style={{fontSize: 10,color:'#747474'}}>12:00-12:40 (40 นาที)</Text>
-              <Text style={{fontSize: 15 ,marginTop: 5}}>ทานอาหารเที่ยง</Text>
-          </View>
-      </View>
-      <View style={[styles.block,{marginTop: 20,flexDirection: 'row'}]}>
-          <FontAwesome5 name="shopping-cart" size={25} color="#F4863C" style={{marginTop:25,marginLeft:20}}/>
-          <View style={{marginLeft: 30,marginTop: 18}}>
-              <Text style={{fontSize: 10,color:'#747474'}}>14:15-15:10 (1 ชั่วโมง 05 นาที)</Text>
-              <Text style={{fontSize: 15,marginTop: 5 }}>ช้อปปิ้ง</Text>
-          </View>
-      </View>
-      <View style={[styles.block,{marginTop: 20,flexDirection: 'row'}]}>
-          <MaterialCommunityIcons name="run" size={35} color="#F4863C" style={{marginTop:20,marginLeft:20}} />
-          <View style={{marginLeft: 30,marginTop: 18}}>
-              <Text style={{fontSize: 10,color:'#747474'}}>17:20-18:05 (45 นาที)</Text>
-              <Text style={{fontSize: 15,marginTop: 5 }}>ออกไปวิ่ง</Text>
-          </View>
-      </View> 
-      <View style={[styles.block,{marginTop: 20,flexDirection: 'row'}]}>
-          <FontAwesome5 name="tv" size={24} color="#F4863C" style={{marginTop:25,marginLeft:20}} />
-          <View style={{marginLeft: 30,marginTop: 18}}>
-              <Text style={{fontSize: 10,color:'#747474'}}>23:00-00:45 (1 ชั่วโมง 45 นาที)</Text>
-              <Text style={{fontSize: 15,marginTop: 5 }}>ดูหนัง</Text>
-          </View>
-      </View> 
-      <TouchableOpacity style={styles.CreatelastButton} onPress={() => {
-        setModal2Visible(true)
-        setModalVisible(false)
-      }}>
-          <Text style={{alignSelf: 'center', marginTop: 8, color: '#ffffff',fontFamily:'Sarabun-Regular',fontSize: 30}}>สร้างงาน</Text>
-      </TouchableOpacity>
-      </Modal>
-
-      <Modal animationType='fade' transparent={false} visible={modal2Visible}>
+      <Modal animationType='fade' transparent={false} visible={modalVisible}>
         <View style={styles.title}>
           <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
             สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
@@ -158,10 +83,10 @@ const styles = StyleSheet.create({
   },
   BoxFocus: {
     marginRight: 20,
-    padding: 8,
-    backgroundColor: '#ffffff',
+    padding: 12,
+    backgroundColor: '#F1F1F1',
     shadowColor: '#000000',
-    elevation: 20,
+    elevation: 3,
     borderRadius: 10
   },
   block: {

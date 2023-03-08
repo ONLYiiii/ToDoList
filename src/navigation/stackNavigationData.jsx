@@ -1,6 +1,4 @@
-// import { TouchableOpacity, Image } from 'react-native';
-
-import TabNavigator from './MainTabNavigator';
+// import TabNavigator from './MainTabNavigator';
 
 import SplashScreen from '../screens/SplashScreen'
 import IntroScreen from '../screens/IntroScreen'
