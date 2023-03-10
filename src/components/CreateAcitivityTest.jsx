@@ -51,7 +51,7 @@ const CreateAcitivityTest = ({ route }) => {
         <TouchableOpacity 
             onPress={() => {
               setModalVisible(false)
-              navigation.replace('HomeScreen')
+              navigation.goBack()
             }} 
             style={styles.closeButton} >
             <AntDesign name="close" size={20} color="white"/>

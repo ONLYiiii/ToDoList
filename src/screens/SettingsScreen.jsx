@@ -10,7 +10,7 @@ const SettingsScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Ionicons name="arrow-back-circle-outline" size={40} color="black" style={{marginTop: 8, marginRight: 10}}/>
                 </TouchableOpacity>
                 <Text style={{fontSize: 36,fontFamily: 'Kanit-SemiBold'}}>การตั้งค่า</Text>
@@ -18,7 +18,7 @@ const SettingsScreen = ({ navigation }) => {
             <View style={styles.Rectangleshape1}>
                 <View style={styles.detail}>
                         <Image style={styles.pic} source={require('../assets/img/Takumi.jpg')}/>
-                        <View style={{flexDirection:'column', marginLeft: 25, marginTop:6}}>
+                        <View style={{flexDirection: 'column', marginLeft: 25, marginTop:6}}>
                             <Text style={{fontSize: 16,fontWeight: '300',color: '#ffffff',fontFamily: 'Kanit-SemiBold'}}>ชื่อ: Nitwaree Boonuea</Text>
                             <Text style={{fontSize: 16,fontWeight: '300',color: '#ffffff',fontFamily: 'Kanit-SemiBold'}}>อีเมล: Nitwaree1234@ku.th</Text>
                             <Text style={{fontSize: 16,fontWeight: '300',color: '#ffffff',fontFamily: 'Kanit-SemiBold'}}>เบอร์: 086XXXXXXX</Text>

@@ -1,4 +1,17 @@
 import {Dimensions} from 'react-native';
+import alarmIcon from "../assets/icons/alarm-fill.svg"
+import bookEducationIcon from '../assets/icons/book-education.svg'
+import codingBrowserIcon from '../assets/icons/coding-browser.svg'
+import consoleControllerIcon from '../assets/icons/console-controller.svg'
+import dumbbellIcon from '../assets/icons/dumbbell-gym.svg'
+import moonIcon from '../assets/icons/moon.svg'
+import paintPalletteIcon from '../assets/icons/paint-pallette.svg'
+import plusIcon from '../assets/icons/plus2.svg'
+import restaurantIcon from '../assets/icons/restaurant.svg'
+import runIcon from '../assets/icons/run.svg'
+import schoolIcon from '../assets/icons/school-solid.svg'
+import shoppingCartIcon from '../assets/icons/shopping-cart.svg'
+import tvIcon from '../assets/icons/tv-fill.svg'
 
 const {width, height} = Dimensions.get('screen');
 
@@ -10,9 +23,22 @@ export const ICONS = {
   backbtn: require('../assets/img/backBtn.png'),
   warningInput: require('../assets/img/gpp_maybe.png'),
   tabIconHomeSelect: require('../assets/img/icons-home-page-1.png'),
-  tabIconHomeNoSelect: require('../assets/img/icons-home-page-2.png'),
   tabIconSettingSelect: require('../assets/img/icons-settings-1.png'),
   tabIconSettingNoSelect: require('../assets/img/icons-settings-2.png'),
+  alarm: alarmIcon,
+  bookEducation: bookEducationIcon,
+  codingBrowser: codingBrowserIcon,
+  consoleController: consoleControllerIcon,
+  dumbbell: dumbbellIcon,
+  moon: moonIcon,
+  paintPallette: paintPalletteIcon,
+  plus: plusIcon,
+  restaurant: restaurantIcon,
+  run: runIcon,
+  school: schoolIcon,
+  shoppingCart: shoppingCartIcon,
+  tv: tvIcon,
+
 }
 
 export const ASSETS = {
@@ -71,7 +97,8 @@ export const GRADIENTS = {
 }
 
 export const THEME = {
-  assets: {...ICONS, ...ASSETS},
+  assets: ASSETS,
+  icons: ICONS,
   // fonts: FONTS,
   gradients: GRADIENTS,
   lines: LINE_HEIGHTS,

@@ -16,14 +16,13 @@ import {
   Calendar,
   ListActivity,
   ModernCalendarStrip,
+  CreateActivitySelectIcon
 } from '../components'
 import { useData, useTheme } from '../hooks'
 import { useNavigation } from '@react-navigation/native';
 
-import CreateAcitivitySelectIcon from '../components/CreateActivitySelectIcon';
-
 const HomeScreen = () => {
-  const {assets} = useTheme()
+  const {icons} = useTheme()
   const {newDate, expenses} = useData()
   const navigation = useNavigation()
   // console.log(expenses)
@@ -83,12 +82,12 @@ const HomeScreen = () => {
       
       {/* List Activity */}
       <Box 
-        mt={5}
-        bgColor={'#fff'}
+        mt={3}
         w={'100%'}
-        h={'69%'}
         pt={7}
         px={5}
+        flex={1}
+        bgColor={'#fff'}
         borderTopLeftRadius={25}
         borderTopRightRadius={25}
         shadow={9}
@@ -107,7 +106,6 @@ const HomeScreen = () => {
       <Box
         elevation={30}
         backgroundColor={'#fff'}
-        // bottom={-437}
         padding={3}
         width={'100%'}
         borderTopWidth={1}
@@ -135,7 +133,7 @@ const HomeScreen = () => {
           <Image
             resizeMode={"contain"}
             alt={"Home Icon"}
-            source={assets.tabIconHomeSelect}
+            source={icons.tabIconHomeSelect}
             boxSize={44}
             alignSelf={'center'}
           />
@@ -188,7 +186,7 @@ const HomeScreen = () => {
           <Image
             resizeMode={"contain"}
             alt={"Home Icon"}
-            source={assets.tabIconSettingSelect}
+            source={icons.tabIconSettingSelect}
             boxSize={35}
           />
           <Text
@@ -205,7 +203,7 @@ const HomeScreen = () => {
       {/* Modal Calendar */}
       {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
       {/* Modal Create Activity Select Icon */}
-      {showSelectIcon && <CreateAcitivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
+      {showSelectIcon && <CreateActivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
     </Background>
   )
 }

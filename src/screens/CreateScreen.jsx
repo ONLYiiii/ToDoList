@@ -1,16 +1,13 @@
 /* eslint-disable react/prop-types */
-/* eslint-disable react-native/no-unused-styles */
 import { useState} from 'react';
 import { Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
 import { Input, View, ScrollView, ZStack, Box } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
-import { AntDesign } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { ScrollTimePicker } from '../components';
 
-// eslint-disable-next-line react/prop-types
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
   const {createModalVisiable} = route.params
@@ -31,12 +28,12 @@ const CreateScreen = ({ route }) => {
             สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
           </Text>
           <TouchableOpacity 
-              onPress={() => {
-                setModalVisible(false)
-                navigation.replace('HomeScreen')
-              }} 
-              style={styles.closeButton} >
-              <AntDesign name="close" size={20} color="white"/>
+            onPress={() => {
+              setModalVisible(false)
+              navigation.replace('HomeScreen')
+            }} 
+          >
+              <MaterialCommunityIcons name="close-circle" size={30} color="#aaa"/>
           </TouchableOpacity>
         </View>
 
@@ -48,7 +45,7 @@ const CreateScreen = ({ route }) => {
           marginTop: 30,
         }}>
           <View style={styles.BoxFocus}>
-              <MaterialCommunityIcons name="cart" size={32} color="#878AF5"/>
+            <MaterialCommunityIcons name="cart" size={32} color="#878AF5"/>
           </View>
           <View w={'80%'}>
             <Input
@@ -83,7 +80,7 @@ const CreateScreen = ({ route }) => {
         <View style={{
           alignSelf: 'center'
         }}>
-          <ScrollTimePicker/>
+          {/* <ScrollTimePicker/> */}
         </View>
 
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 35}]}>
@@ -114,7 +111,7 @@ const CreateScreen = ({ route }) => {
 
         <Box w={'80%'} bgColor={'#F1F1F1'} alignSelf={'center'} style={styles.BoxNote}>
           <View flexDirection={'row'} bgColor={'#666AF6'} style={styles.NoteTitle}>
-            <AntDesign name="pluscircleo" size={24} color="#fff" />
+            <MaterialCommunityIcons name="plus-circle" size={24} color="#fff" />
             <Text style={{
               fontFamily:'Sarabun-Bold',
               fontSize: 18,
@@ -140,10 +137,6 @@ const CreateScreen = ({ route }) => {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fffdfe',
-    flex: 1,
-  },
   title: {
     width: '100%',
     height: 65,
@@ -155,14 +148,6 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingHorizontal: 20,
   },
-  closeButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 40,
-    backgroundColor: "#999",
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
   BoxFocus: {
     marginRight: 20,
     padding: 12,
@@ -170,21 +155,6 @@ const styles = StyleSheet.create({
     shadowColor: '#000000',
     elevation: 3,
     borderRadius: 10
-  },
-  block: {
-    width: '85%',
-    height: 75,
-    alignSelf: 'center',
-    backgroundColor: "#f8f8f8",
-    borderRadius: 20
-  },
-  CreatelastButton: {
-    width: '85%',
-    height: 65,
-    backgroundColor: "#666AF6",
-    alignSelf: 'center',
-    marginTop: 20,
-    borderRadius: 20,
   },
   textStartAcitity: {
     flexDirection: 'row',
