@@ -1,17 +1,20 @@
 /* eslint-disable react/prop-types */
 import { useState} from 'react';
-import { Text, StyleSheet, TouchableOpacity, Modal} from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Modal, TouchableWithoutFeedback, Pressable} from 'react-native';
 import { Input, View, ScrollView, ZStack, Box } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 
-import { ScrollTimePicker } from '../components';
+// import { ScrollTimePicker } from '../components';
 
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
   const {createModalVisiable} = route.params
   const [modalVisible, setModalVisible] = useState(createModalVisiable);
+  const [modalBeforePicTime,setmodalBeforePicTime] = useState(false);
+  const [modalPicTime,setmodalPicTime] = useState(false);
+  const [modalPicTime2,setmodalPicTime2] = useState(false);
 
   return (
     <>
@@ -65,7 +68,9 @@ const CreateScreen = ({ route }) => {
       
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 24}]}>
           <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>เมื่อไหร่</Text>
-          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>มากกว่า</Text>
+          <TouchableOpacity onPress = {() => {setmodalBeforePicTime(true)}} >
+            <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}  >มากกว่า</Text>
+          </TouchableOpacity>
         </View>
 
         <Text style={{
@@ -85,7 +90,9 @@ const CreateScreen = ({ route }) => {
 
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 35}]}>
           <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>นานเเค่ไหน?</Text>
-          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>ระบุเอง...</Text>
+          <TouchableOpacity onPress = {() => {setmodalPicTime2(true)}} >
+            <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>ระบุเอง...</Text>
+          </TouchableOpacity>
         </View>
         
         <ZStack mt={4} alignItems="center" justifyContent="center" style={{height: 50}}>
@@ -130,7 +137,118 @@ const CreateScreen = ({ route }) => {
             เพิ่มโน๊ต ลิ้งค์การประชุม หรือ เบอร์โทรศัพท์..
           </Text>
         </Box>
+        <TouchableOpacity style={styles.CreatelastButton} onPress={() => {}}>
+          <Text style={{ alignSelf: 'center', marginTop: 8, color: '#ffffff', fontFamily: 'Sarabun-Regular', fontSize: 30 }}>สร้างงาน</Text>
+        </TouchableOpacity>
         </ScrollView>
+      </Modal>
+
+      <Modal animationType='fade' transparent={true} visible={modalBeforePicTime}>
+        <Pressable onPress={() => {setmodalBeforePicTime(false)}} style={{alignItems: 'flex-end',flex: 1}}>
+          <TouchableWithoutFeedback>
+            <View style={{
+              width: 130,
+              height: 30,
+              backgroundColor: '#878AF5',
+              borderRadius: 15,
+              marginTop: 180,
+              marginRight: 25,
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}>
+              <TouchableOpacity onPress = {() => {setmodalPicTime(true); setmodalBeforePicTime(false)}}>
+                <Text style={{fontFamily:'Sarabun-Medium',fontSize: 13,color: '#ffffff'}}>ระบุเวลาเพิ่มกิจกรรม</Text>
+              </TouchableOpacity>
+          </View>
+        </TouchableWithoutFeedback>
+        </Pressable>
+      
+      </Modal>
+
+      <Modal animationType='fade' transparent={true} visible={modalPicTime} >
+          <Pressable style={{alignItems: 'center',justifyContent: 'center',flex:1,}} onPress = {() => {setmodalPicTime(false);}}>
+            <TouchableWithoutFeedback>
+              <View style ={{ 
+                width: '75%',
+                height: '25%',
+                backgroundColor: '#878AF5',
+                borderRadius:10
+              }}>
+                <Text style={{
+                  margin: 10,
+                  fontSize: 15,
+                  fontFamily:'Sarabun-Medium',
+                  color: '#ffffff'
+                }}>ระบุเวลาเริ่มกิจกรรม</Text>
+                <Text style ={{
+                  alignSelf: 'center',
+                  fontSize: 13,
+                  fontFamily:'Sarabun-Medium',
+                  color: '#ffffff85',
+                  }}>ชั่วโมง : นาที</Text>
+                <View style={{
+                  width: '30%', 
+                  height: '15%',
+                  backgroundColor: '#F4863C',
+                  borderRadius: 10,
+                  alignSelf: 'flex-end',
+                  marginTop: 70,
+                  marginHorizontal: 10,
+                  justifyContent: 'center'
+                  }}>
+                  {/* ใส่เวลา */}
+                    <Text style={{
+                      alignSelf: 'center',
+                      fontFamily:'Sarabun-Medium',
+                      color: '#808080'
+                    }}>เสร็จสิ้น</Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Pressable>
+      </Modal>
+      
+      <Modal animationType='fade' transparent={true} visible={modalPicTime2} >
+          <Pressable style={{alignItems: 'center',justifyContent: 'center',flex:1,}} onPress = {() => {setmodalPicTime2(false);}}>
+            <TouchableWithoutFeedback>
+              <View style ={{ 
+                width: '75%',
+                height: '25%',
+                backgroundColor: '#878AF5',
+                borderRadius:10
+              }}>
+                <Text style={{
+                  margin: 10,
+                  fontSize: 15,
+                  fontFamily:'Sarabun-Medium',
+                  color: '#ffffff'
+                }}>ระบุเวลาทำกิจกรรม</Text>
+                <Text style ={{
+                  alignSelf: 'center',
+                  fontSize: 13,
+                  fontFamily:'Sarabun-Medium',
+                  color: '#ffffff85',
+                  }}>ชั่วโมง : นาที</Text>
+                <View style={{
+                  width: '30%', 
+                  height: '15%',
+                  backgroundColor: '#F4863C',
+                  borderRadius: 10,
+                  alignSelf: 'flex-end',
+                  marginTop: 70,
+                  marginHorizontal: 10,
+                  justifyContent: 'center'
+                  }}>
+                  {/* ใส่เวลา */}
+                    <Text style={{
+                      alignSelf: 'center',
+                      fontFamily:'Sarabun-Medium',
+                      color: '#808080'
+                    }}>เสร็จสิ้น</Text>
+                </View>
+              </View>
+            </TouchableWithoutFeedback>
+          </Pressable>
       </Modal>
     </>
   );
@@ -172,7 +290,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderTopLeftRadius: 15,
     borderTopRightRadius: 15,
-  }
+  },
+  CreatelastButton: {
+    width: '85%',
+    height: 65,
+    backgroundColor: "#666AF6",
+    alignSelf: 'center',
+    marginTop: 20,
+    borderRadius: 20,
+  },
 });
 
 export default CreateScreen;

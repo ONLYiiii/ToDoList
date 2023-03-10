@@ -6,6 +6,7 @@ import {
   Image,
   NewDate,
   NewTime,
+  IconActivity,
 } from '../constants';
 import PropTypes from 'prop-types';
 const Activity_DATA = [
@@ -60,6 +61,7 @@ export const DataProvider = ({ children }) => {
   const [image, setImage] = useState(Image)
   const [newDate, setNewDate] = useState(NewDate)
   const [newTime, setNewTime] = useState(NewTime)
+  const [iconActivity, setIconActivity] = useState(IconActivity)
 
   const [expenseState, dispatch] = useReducer(expensesReducer, Activity_DATA)
 
@@ -84,6 +86,8 @@ export const DataProvider = ({ children }) => {
     setNewDate,
     newTime,
     setNewTime,
+    iconActivity,
+    setIconActivity,
     expenses: expenseState,
     addExpense: addExpense,
     deleteExpense: deleteExpense,

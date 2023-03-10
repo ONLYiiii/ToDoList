@@ -2,7 +2,7 @@ import {Dimensions} from 'react-native';
 import alarmIcon from "../assets/icons/alarm-fill.svg"
 import bookEducationIcon from '../assets/icons/book-education.svg'
 import codingBrowserIcon from '../assets/icons/coding-browser.svg'
-import consoleControllerIcon from '../assets/icons/console-controller.svg'
+import consoleControllerIcon from '../assets/icons/console-controller2.svg'
 import dumbbellIcon from '../assets/icons/dumbbell-gym.svg'
 import moonIcon from '../assets/icons/moon.svg'
 import paintPalletteIcon from '../assets/icons/paint-pallette.svg'
@@ -38,7 +38,6 @@ export const ICONS = {
   school: schoolIcon,
   shoppingCart: shoppingCartIcon,
   tv: tvIcon,
-
 }
 
 export const ASSETS = {

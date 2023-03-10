@@ -94,13 +94,13 @@ const StackNavigationData = [
     headerLeft: null,
     headerShown: false
   },
-  {
-    id: 9,
-    name: 'ScrollTimePicker',
-    component: ScrollTimePicker,
-    headerLeft: null,
-    headerShown: false
-  },
+  // {
+  //   id: 9,
+  //   name: 'ScrollTimePicker',
+  //   component: ScrollTimePicker,
+  //   headerLeft: null,
+  //   headerShown: false
+  // },
 ]
 
 export default StackNavigationData;

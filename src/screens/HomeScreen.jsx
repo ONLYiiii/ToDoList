@@ -9,7 +9,6 @@ import {
   VStack,
 } from 'native-base'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
-import { AntDesign } from '@expo/vector-icons';
 
 import {
   Background,
@@ -20,6 +19,7 @@ import {
 } from '../components'
 import { useData, useTheme } from '../hooks'
 import { useNavigation } from '@react-navigation/native';
+import { SvgXml } from 'react-native-svg';
 
 const HomeScreen = () => {
   const {icons} = useTheme()
@@ -119,6 +119,7 @@ const HomeScreen = () => {
           style={{
             backgroundColor: '#878AF5',
             marginLeft: 40,
+            padding: 0,
             borderRadius: 20,
             borderWidth: 1,
             borderColor: '#EDEDED',
@@ -161,9 +162,7 @@ const HomeScreen = () => {
           height={70}
           borderRadius={40}
         >
-          <View>
-            <AntDesign name="plus" size={50} color="white" />
-          </View>
+          <SvgXml stroke={'#fff'} width="40" height="40" xml={icons.plus} />
         </Button>
         <Button
           style={{
@@ -179,7 +178,7 @@ const HomeScreen = () => {
           boxSize={65}
           shadow={5}
           pt={4}
-          paddingLeft={3}
+          px={0}
           bottom={0}
           onPress={() => navigation.navigate('SettingsScreen')}
         >
@@ -188,6 +187,7 @@ const HomeScreen = () => {
             alt={"Home Icon"}
             source={icons.tabIconSettingSelect}
             boxSize={35}
+            ml={1}
           />
           <Text
             style={{ fontSize: 12}}
