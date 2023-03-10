@@ -6,13 +6,14 @@ import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 
 import Background from './Background';
-import { useTheme } from '../hooks';
+import { useTheme, useData } from '../hooks';
 
 
 // eslint-disable-next-line react/prop-types
 const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
   const navigation = useNavigation()
   const { icons } = useTheme()
+  const { iconActivity } = useData()
 
   return (
     <Background>
@@ -66,63 +67,45 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
             />
           </View>
         </View>
+
         <View
-          p={5}
           w={'90%'}
-          style={{flexDirection: 'row', flexWrap: 'nowrap', alignSelf: 'center', justifyContent: 'space-between'}}
-        //  bgColor={'amber.300'}
+          h={'40%'}
+          mt={5}
+          p={5}
+          style={{
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignSelf: 'center',
+            justifyContent: 'space-between'
+          }}
+          // bgColor={'amber.300'}
         >
-          <Button
-            width={60}
-            bgColor={'#F1F1F1'}
-            borderRadius={10}
-            justifyContent={'center'}
-            alignItems={'center'}
-            borderColor={'#e1e1e1'}
-            borderWidth={1}
-            style={{ shadowColor: '#000', elevation: 20 }}
-          >
-            <SvgXml fill={'#F1BC'} width="40" height="40" xml={icons.dumbbell} />
-          </Button>
-          <Button
-            width={60}
-            bgColor={'#F1F1F1'}
-            borderRadius={10}
-            justifyContent={'center'}
-            alignItems={'center'}
-            borderColor={'#e1e1e1'}
-            borderWidth={1}
-            style={{ shadowColor: '#000', elevation: 20 }}
-          >
-            <SvgXml fill={'#F1BC'} width="40" height="40" xml={icons.dumbbell} />
-          </Button>
-          <Button
-            width={60}
-            bgColor={'#F1F1F1'}
-            borderRadius={10}
-            justifyContent={'center'}
-            alignItems={'center'}
-            borderColor={'#e1e1e1'}
-            borderWidth={1}
-            style={{ shadowColor: '#000', elevation: 20 }}
-          >
-            <SvgXml fill={'#F1BC'} width="40" height="40" xml={icons.dumbbell} />
-          </Button>
-          <Button
-            width={60}
-            bgColor={'#F1F1F1'}
-            borderRadius={10}
-            borderColor={'#e1e1e1'}
-            borderWidth={1}
-            style={{ 
-              shadowColor: '#000',
-              elevation: 20,
-              alignItems: 'center',
-              justifyContent: 'center'
-            }}
-          >
-            <SvgXml fill={'#F1BC'} width="40" height="40" xml={icons.dumbbell} />
-          </Button>
+          {iconActivity.map((item, index, array) => (
+              item.id < array.length-2 && 
+                <Button
+                  key={index}
+                  boxSize={70}
+                  mr={item.id%3 != 0 ? 8 : 0}
+                  mb={item.id < array.length-2 ? 8 : 0}
+                  // mr={item.id%3 != 0 ? 8 : 0}
+                  // mb={(item.id==array.length-3) == 0 ? 8 : 0}
+                  bgColor={'#F1F1F1'}
+                  borderRadius={10}
+                  justifyContent={'center'}
+                  alignItems={'center'}
+                  borderColor={'#e1e1e1'}
+                  borderWidth={1}
+                  _pressed={{
+                    bgColor: '#FbFbFb',
+                    transform: [{ scale: 0.96 }]
+                  }}
+                  style={{ shadowColor: '#000', elevation: 20 }}
+                >
+                  <SvgXml fill={'#F1BC'} width="40" height="40" xml={item.icon} />
+                </Button>
+          ))}
+          <SvgXml fill={'#F1BC'} stroke width="40" height="40" xml={icons.consoleController} />
         </View>
 
 
