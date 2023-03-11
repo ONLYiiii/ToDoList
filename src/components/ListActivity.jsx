@@ -3,12 +3,15 @@ import {
   Text,
   Box,
   View,
-  Button,
-  Divider,
 } from 'native-base'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+
+import editing from '../assets/icons/edit.svg'
+import { useData, useTheme } from '../hooks'
+import { SvgXml } from 'react-native-svg'
 
 const ListActivity = ({name,timestart}) => {
+  const {icons} = useData()
+
   return (
     <View
       flexDirection={'row'}
@@ -29,16 +32,18 @@ const ListActivity = ({name,timestart}) => {
             justifyContent={'center'}
             alignItems={'center'}
           >
-            <MaterialCommunityIcons name="cart" size={30} color="#fff" />
+            <SvgXml fill={'#fff'} width={40} height={40} xml={icons} />
           </Box>
         </View>
         <View
           flexDirection={'column'}
           justifyContent={'center'}
+          mr={3}
         >
           <Text>{timestart}</Text>
           <Text>{name}</Text>
         </View>
+          <SvgXml stroke={'#F5A912'} width={40} height={40} xml={editing} />
       </View>
       <Box 
         boxSize={30}
