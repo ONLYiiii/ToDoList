@@ -23,10 +23,9 @@ import { SvgXml } from 'react-native-svg';
 
 const HomeScreen = () => {
   const {icons} = useTheme()
-  const {newDate, expenses} = useData()
+  const {newDate, activity} = useData()
   const navigation = useNavigation()
   // console.log(expenses)
-  // console.log("count")
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSelectIcon, setShowSelectIcon] = useState(false)
 
@@ -68,12 +67,6 @@ const HomeScreen = () => {
               ModalVisiable: true
             })}
           />
-          <MaterialCommunityIcons
-            name="clock"
-            size={36}
-            color="#666AF6" 
-            onPress={() => navigation.navigate('ScrollTimePicker')}
-          />
         </View>
       </View>
 
@@ -93,7 +86,7 @@ const HomeScreen = () => {
         shadow={9}
       >
         <VStack>
-          {expenses.map((item, index, array) => (
+          {activity.map((item, index, array) => (
             <View key={item.id}>
               <ListActivity name={item.name} timestart={item.timestart}  />
               {index+1 != array.length && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
@@ -201,7 +194,7 @@ const HomeScreen = () => {
       </Box>
 
       {/* Modal Calendar */}
-      {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
+      {showCalendar && <Calendar showCalendar={showCalendar}  setShowCalendar={setShowCalendar} />}
       {/* Modal Create Activity Select Icon */}
       {showSelectIcon && <CreateActivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
     </Background>

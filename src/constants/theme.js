@@ -2,16 +2,17 @@ import {Dimensions} from 'react-native';
 import alarmIcon from "../assets/icons/alarm-fill.svg"
 import bookEducationIcon from '../assets/icons/book-education.svg'
 import codingBrowserIcon from '../assets/icons/coding-browser.svg'
-import consoleControllerIcon from '../assets/icons/console-controller2.svg'
+import consoleControllerIcon from '../assets/icons/console-controller3.svg'
 import dumbbellIcon from '../assets/icons/dumbbell-gym.svg'
-import moonIcon from '../assets/icons/moon.svg'
-import paintPalletteIcon from '../assets/icons/paint-pallette.svg'
+import moonIcon from '../assets/icons/moonBlack.svg'
+import paintPalletteIcon from '../assets/icons/paint.svg'
 import plusIcon from '../assets/icons/plus2.svg'
 import restaurantIcon from '../assets/icons/restaurant.svg'
 import runIcon from '../assets/icons/run.svg'
 import schoolIcon from '../assets/icons/school-solid.svg'
-import shoppingCartIcon from '../assets/icons/shopping-cart.svg'
+import shoppingCartIcon from '../assets/icons/shopping-cart2.svg'
 import tvIcon from '../assets/icons/tv-fill.svg'
+import editing from '../assets/icons/edit.svg'
 
 const {width, height} = Dimensions.get('screen');
 
@@ -38,6 +39,7 @@ export const ICONS = {
   school: schoolIcon,
   shoppingCart: shoppingCartIcon,
   tv: tvIcon,
+  editing: editing,
 }
 
 export const ASSETS = {

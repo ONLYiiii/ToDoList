@@ -1,28 +1,33 @@
-import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View } from 'react-native';
 import CalendarStrip from 'react-native-calendar-strip';
-import moment from 'moment';
+import { useData } from '../hooks';
 
 const ModernCalendarStrip = () => {
+  const {newDate} = useData()
   
   return (
     <View style={{ width: '100%'}}>
     <CalendarStrip
       scrollable={true}
       daySelectionAnimation={{
-        type: 'border',
-        duration: 100,
+        type: 'background',
         borderWidth: 1,
-        borderHighlightColor: '#666AF6'
+        // borderHighlightColor: '#666AF6',
+        highlightColor: '#F29D38'
       }}
-      style={{height:70, paddingBottom: 10}}
-      highlightDateNameStyle={{color: '#666AF6', fontSize: 16}}
-      highlightDateNumberStyle={{color: '#666AF6'}}
-      disabledDateNameStyle={{color: 'grey'}}
-      disabledDateNumberStyle={{color: 'grey'}}
-      dateNameStyle={{fontSize: 16}}
+      style={{height:72, paddingBottom: 10}}
+      highlightDateNameStyle={{color: '#fff', fontSize: 12}}
+      highlightDateNumberStyle={{color: '#fff'}}
+      dateNameStyle={{fontSize: 14}}
       dateNumberStyle={{fontSize: 16}}
-      dayContainerStyle={{width: 50, height: 50}}
+      dayContainerStyle={{width: 50, height: 48}}
+      startingDate={newDate.fullDate}
+      onDateSelected={(date) => console.log("date strip", date)}
+      headerText={" "}
+      calendarAnimation={{
+        type: 'parallel',
+        duration: 100
+      }}
     />
   </View>
   );

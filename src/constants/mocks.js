@@ -49,56 +49,63 @@ export const newTimeSelected = {
 
 export const iconActivity = [
   {
-    id: 1,
-    icon: light.icons.alarm,
-  },
-  {
-    id: 2,
-    icon: light.icons.bookEducation,
-  },
-  {
-    id: 3,
-    icon: light.icons.codingBrowser,
-    // stroke: true
-  },
-  {
-    id: 4,
-    icon: light.icons.consoleController,
-    // stroke: false
-  },
-  {
-    id: 5,
-    icon: light.icons.dumbbell,
-    // stroke: false
-  },
-  {
-    id: 6,
-    icon: light.icons.paintPallette,
-    // stroke: false
-  },
-  {
-    id: 7,
-    icon: light.icons.plus,
-    // stroke: true
-  },
-  {
-    id: 8,
+    name: "กินข้าว",
     icon: light.icons.restaurant,
   },
   {
-    id: 9,
-    icon: light.icons.run,
-  },
-  {
-    id: 10,
-    icon: light.icons.school,
-  },
-  {
-    id: 11,
+    name: "ซื้อของ",
     icon: light.icons.shoppingCart,
   },
   {
-    id: 12,
+    name: "วิ่ง",
+    icon: light.icons.run,
+  },
+  {
+    name: "ดูหนัง",
     icon: light.icons.tv,
+  },
+  {
+    name: "นอนหลับ",
+    icon: light.icons.moon,
+  },
+  {
+    name: "ไปเรียน",
+    icon: light.icons.school,
+  },
+  {
+    name: "เล่นเกม",
+    icon: light.icons.consoleController,
+  },
+  {
+    name: "ฟิตเนส",
+    icon: light.icons.dumbbell,
+  },
+  {
+    name: "เพิ่มเติม",
+    icon: light.icons.plus,
+  },
+  {
+    name: "อ่านหนังสือ",
+    icon: light.icons.bookEducation,
+  },
+  {
+    name: "เขียนโค้ด",
+    icon: light.icons.codingBrowser,
+  },
+  {
+    name: "วาดรูป",
+    icon: light.icons.paintPallette,
+  },
+  {
+    name: "ตื่นนอน",
+    icon: light.icons.alarm,
   }
 ]
+
+export const newSelectIconActivity = {
+  iconActivitySelected: light.icons.shoppingCart
+}
+
+export const newTextActivity = {
+  textActivity: ""
+}

@@ -13,7 +13,7 @@ const CreateAcitivityTest = ({ route }) => {
   const navigation = useNavigation()
   const {ModalVisiable} = route.params
   const [modalVisible, setModalVisible] = useState(false);
-  const {addExpense,deleteExpense,updateExpense} = useData()
+  // const {addExpense,deleteExpense,updateExpense} = useData()
 
   const [name, setName] = useState("");
   const [timestart, setTimeStart] = useState("");
@@ -27,12 +27,12 @@ const CreateAcitivityTest = ({ route }) => {
   const handleChangeHowLong = text => setHowLong(text);
   
   function confirmHandle() {
-    addExpense({
-      name: name,
-      timestart: timestart,
-      dateAt: dateat,
-      howlong: howlong
-    })
+    // addExpense({
+    //   name: name,
+    //   timestart: timestart,
+    //   dateAt: dateat,
+    //   howlong: howlong
+    // })
     navigation.replace('HomeScreen')
   }
 

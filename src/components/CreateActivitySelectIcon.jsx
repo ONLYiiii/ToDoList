@@ -1,4 +1,4 @@
-// import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import { Input, View, Button } from 'native-base';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -6,14 +6,16 @@ import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 
 import Background from './Background';
-import { useTheme, useData } from '../hooks';
+import { useData } from '../hooks';
+// import consolecontroller from '../assets/icons/moon.svg'
 
 
 // eslint-disable-next-line react/prop-types
 const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
   const navigation = useNavigation()
-  const { icons } = useTheme()
-  const { iconActivity } = useData()
+  const { iconActivity, newIconActivitySelected, setIconActivitySelected } = useData()
+  const [selectIconPlus, setSelectIconPlus] = useState(false)
+  const [textActivity,setTextActivity] = useState("")
 
   return (
     <Background>
@@ -26,8 +28,8 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
           <TouchableOpacity
             onPress={() => {
               onShowSelectIcon(false)
-              navigation.replace('HomeScreen')
             }}
+            style={{padding: 5}}
           >
             <MaterialCommunityIcons name="close-circle" size={30} color="#aaa" />
           </TouchableOpacity>
@@ -50,7 +52,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
           width: '80%'
         }}>
           <View style={styles.BoxFocus}>
-            <MaterialCommunityIcons name="cart" size={32} color="#878AF5" />
+            <SvgXml fill={'#878AF5'} width={34} height={34} xml={newIconActivitySelected.iconActivitySelected} /> 
           </View>
           <View w={'80%'}>
             <Input
@@ -64,6 +66,8 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
               fontSize={16}
               focusOutlineColor={'blue.500'}
               _focus={{ borderBottomWidth: 3 }}
+              value={textActivity}
+              onChangeText={(text) => setTextActivity(text)}
             />
           </View>
         </View>
@@ -82,41 +86,135 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
           // bgColor={'amber.300'}
         >
           {iconActivity.map((item, index, array) => (
-              item.id < array.length-2 && 
-                <Button
+              (index+1) < array.length-3 && (
+                <View
                   key={index}
-                  boxSize={70}
-                  mr={item.id%3 != 0 ? 8 : 0}
-                  mb={item.id < array.length-2 ? 8 : 0}
-                  // mr={item.id%3 != 0 ? 8 : 0}
-                  // mb={(item.id==array.length-3) == 0 ? 8 : 0}
-                  bgColor={'#F1F1F1'}
-                  borderRadius={10}
-                  justifyContent={'center'}
-                  alignItems={'center'}
-                  borderColor={'#e1e1e1'}
-                  borderWidth={1}
-                  _pressed={{
-                    bgColor: '#FbFbFb',
-                    transform: [{ scale: 0.96 }]
-                  }}
-                  style={{ shadowColor: '#000', elevation: 20 }}
+                  mr={(index+1)%3 != 0 ? 8 : 0}
+                  mb={(index+1)<array.length-3 ? 6 : 0}
+                  style={{width: 'auto', height: 'auto'}}
                 >
-                  <SvgXml fill={'#F1BC'} width="40" height="40" xml={item.icon} />
-                </Button>
+                  <Button
+                    boxSize={70}
+                    bgColor={'#F1F1F1'}
+                    borderRadius={10}
+                    justifyContent={'center'}
+                    alignItems={'center'}
+                    borderColor={'#e1e1e1'}
+                    onPress={
+                      (index+1)==9 ? () => setSelectIconPlus(true)
+                      : () => {
+                        setIconActivitySelected({iconActivitySelected: item.icon})
+                        setTextActivity(item.name)
+                      }
+                    }
+                    borderWidth={1}
+                    _pressed={{
+                      bgColor: '#FbFbFb',
+                      // transform: [{ scale: 0.96 }]
+                    }}
+                    style={{ shadowColor: '#000', elevation: 20 }}
+                  >
+                    {(index+1)==9 ? <SvgXml stroke={'#F1BC'} width="40" height="40" xml={item.icon} /> :
+                    <SvgXml fill={'#F1BC'}  width="40" height="40" xml={item.icon} />}
+                  </Button>
+                  <Text style={{marginTop: 7,textAlign: 'center', fontFamily: 'Sarabun-Regular'}}>{item.name}</Text>
+                </View>
+              ) 
           ))}
-          <SvgXml fill={'#F1BC'} stroke width="40" height="40" xml={icons.consoleController} />
         </View>
 
+        <Modal animationType='slide' transparent={true} visible={selectIconPlus}>
+          <View style={{position: 'absolute', width: '100%', top: 200, alignSelf: 'center'}}>
+            <View style={{
+              width: '80%',
+              height: 65,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              alignSelf: 'center',
+              borderTopLeftRadius: 10,
+              borderTopRightRadius: 10,
+              backgroundColor: "#e1e1e1",
+              borderBottomColor: '#dddddd',
+              borderBottomWidth: 1,
+              paddingHorizontal: 20,
+            }}>
+              <Text style={{ fontFamily: 'Sarabun-Medium', fontSize: 25 }}>
+                เลือกไอคอน
+              </Text>
+              <TouchableOpacity
+                onPress={() => {
+                  setSelectIconPlus(false)
+                }}
+              >
+                <MaterialCommunityIcons name="close-circle" size={30} color="#bbb" />
+              </TouchableOpacity>
+            </View>
+
+            <View
+              w={'80%'}
+              h={'auto'}
+              p={5}
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                alignSelf: 'center',
+                justifyContent: 'space-between',
+                borderBottomLeftRadius: 10,
+                borderBottomRightRadius: 10,
+              }}
+              bgColor={'gray.400'}
+            >
+              {iconActivity.map((item, index) => (
+                (index+1) > 9 && (
+                  <View
+                    key={index}
+                    mr={1}
+                    mb={(index+1)< 11 ? 6 : 0}
+                    style={{width: 'auto', height: 'auto'}}
+                  >
+                    <Button
+                      boxSize={70}
+                      bgColor={'#F1F1F1'}
+                      borderRadius={10}
+                      justifyContent={'center'}
+                      alignItems={'center'}
+                      borderColor={'#e1e1e1'}
+                      onPress={() => {
+                        setIconActivitySelected({iconActivitySelected: item.icon})
+                        setSelectIconPlus(false)
+                      }}
+                      borderWidth={1}
+                      _pressed={{
+                        bgColor: '#FbFbFb'
+                      }}
+                      style={{ shadowColor: '#000', elevation: 20 }}
+                    >
+                      <SvgXml fill={'#F1BC'} width="40" height="40" xml={item.icon} />
+                    </Button>
+                    <Text style={{marginTop: 7,textAlign: 'center', color: '#fff', fontFamily: 'Sarabun-Regular'}}>{item.name}</Text>
+                  </View>
+                )  
+              ))}
+            </View>
+          </View>  
+        </Modal>
 
 
         <TouchableOpacity style={styles.CreatelastButton} onPress={() => {
           onShowSelectIcon(false)
-          navigation.replace('CreateScreen', {
-            createModalVisiable: true
+          navigation.navigate('CreateScreen', {
+            createModalVisiable: true,
+            textActivity: textActivity
           })
         }}>
-          <Text style={{ alignSelf: 'center', marginTop: 8, color: '#ffffff', fontFamily: 'Sarabun-Regular', fontSize: 30 }}>สร้างงาน</Text>
+          <Text style={{ 
+            textAlign: 'center',
+            marginTop: 5,
+            color: '#ffffff',
+            fontFamily: 'Sarabun-Regular',
+            fontSize: 30
+            }}>สร้างงาน</Text>
         </TouchableOpacity>
       </Modal>
     </Background>
@@ -148,7 +246,7 @@ const styles = StyleSheet.create({
     height: 65,
     backgroundColor: "#666AF6",
     alignSelf: 'center',
-    marginTop: 20,
+    marginTop: 80,
     borderRadius: 20,
   },
 });

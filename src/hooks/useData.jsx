@@ -7,8 +7,11 @@ import {
   NewDate,
   NewTime,
   IconActivity,
+  NewIconActivity,
+  newTextActivity,
 } from '../constants';
 import PropTypes from 'prop-types';
+import { newSelectIconActivity } from '../constants/mocks';
 const Activity_DATA = [
   {
     id: '1',
@@ -27,26 +30,26 @@ const Activity_DATA = [
 ]
 
 export const DataContext = createContext({
-  expenses: [],
-  addExpense: ({ name, timestart, dateAt, howlong }) => {},
-  deleteExpense: (id) => {},
-  updateExpense: (id, { name, timestart, dateAt, howlong }) => {},
+  activity: [],
+  addActivity: ({ name, timestart, dateAt, howlong, icon }) => {},
+  deleteActivity: (id) => {},
+  updateActivity: (id, { name, timestart, dateAt, howlong, icon }) => {},
 });
 
-function expensesReducer(state, action) {
+function activityReducer(state, action) {
   switch (action.type){
       case 'ADD' :
           const id = new Date().getTime().toString()
           return [{...action.payload, id: id}, ...state]
       case 'UPDATE':
-          const updatableExpenseIndex = state.findIndex(
-              (expense) => expense.id === action.payload.id
+          const updatableActivityIndex = state.findIndex(
+              (activity) => activity.id === action.payload.id
           )
-          const updatableExpense = state[updatableExpenseIndex]
-          const updatedItem = { ...updatableExpense, ...action.payload.data}
-          const updatedExpense = [...state]
-          updatedExpense[updatableExpenseIndex] = updatedItem
-          return updatedExpense
+          const updatableActivity = state[updatableActivityIndex]
+          const updatedItem = { ...updatableActivity, ...action.payload.data}
+          const updatedActivity = [...state]
+          updatedActivity[updatableActivityIndex] = updatedItem
+          return updatedActivity
       case 'DELETE':
           return state.filter((expense) => expense.id !== action.payload)
       default:
@@ -62,19 +65,21 @@ export const DataProvider = ({ children }) => {
   const [newDate, setNewDate] = useState(NewDate)
   const [newTime, setNewTime] = useState(NewTime)
   const [iconActivity, setIconActivity] = useState(IconActivity)
+  const [newIconActivitySelected, setIconActivitySelected] = useState(NewIconActivity)
+  const [textActivity,setTextActivity] = useState(newTextActivity)
 
-  const [expenseState, dispatch] = useReducer(expensesReducer, Activity_DATA)
+  const [activityState, dispatch] = useReducer(activityReducer, Activity_DATA)
 
-  function addExpense(expenseData) {
-      dispatch({ type: 'ADD', payload: expenseData})
+  function addActivity(activityData) {
+      dispatch({ type: 'ADD', payload: activityData})
   }
 
-  function deleteExpense(id) {
+  function deleteActivity(id) {
       dispatch({ type: 'DELETE', payload: id})
   }
 
-  function updateExpense(id, expenseData) {
-      dispatch({ type: 'UPDATE', payload: {id: id, data: expenseData}})
+  function updateActivity(id, activityData) {
+      dispatch({ type: 'UPDATE', payload: {id: id, data: activityData}})
   }
 
   const contextValue = {
@@ -88,10 +93,14 @@ export const DataProvider = ({ children }) => {
     setNewTime,
     iconActivity,
     setIconActivity,
-    expenses: expenseState,
-    addExpense: addExpense,
-    deleteExpense: deleteExpense,
-    updateExpense: updateExpense,
+    newIconActivitySelected,
+    setIconActivitySelected,
+    textActivity,
+    setTextActivity,
+    activity: activityState,
+    addActivity: addActivity,
+    deleteActivity: deleteActivity,
+    updateActivity: updateActivity,
   }
 
   return (
