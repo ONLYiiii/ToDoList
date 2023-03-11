@@ -8,7 +8,7 @@ const Calendar = ({showCalendar,onShowCalenderChange}) => {
   const {setNewDate} = useData()
 
   const handleConfirm = (date) => {
-    // console.log("A date has been picked: ",  getFormatDateFromCalendar(date));
+    console.log("A date has been picked: ",  getFormatDateFromCalendar(date));
     setNewDate({
       day: getFormatDateFromCalendar(date).split('-')[2],
       monthText: getMonthText(getFormatDateFromCalendar(date).split('-')[1]-1),

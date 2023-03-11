@@ -25,7 +25,7 @@ const HomeScreen = () => {
   const {icons} = useTheme()
   const {newDate, activity} = useData()
   const navigation = useNavigation()
-  console.log(activity)
+  // console.log(activity)
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSelectIcon, setShowSelectIcon] = useState(false)
 
@@ -85,11 +85,11 @@ const HomeScreen = () => {
         borderTopRightRadius={25}
         shadow={9}
       >
-        <VStack>
+        <VStack direction={'column-reverse'}>
           {activity.map((item, index, array) => (
-            <View key={item.id}>
-              <ListActivity name={item.name} timestart={item.timestart} _id={index}  />
+            <View key={index}>
               {index+1 != array.length && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
+              <ListActivity name={item.name} timestart={item.timestart} icon={item.icon} />
             </View>
           ))}
         </VStack>

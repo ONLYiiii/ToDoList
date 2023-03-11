@@ -31,7 +31,7 @@ export default function ScrollTimePicker({warpperColor, inputChangeHandler}) {
       alignSelf: 'center',
       flexDirection: 'row'
     }}>
-      <View style={{width:80 ,height: 200}}>
+      <View style={{width:80 ,height: 150}}>
         <ScrollPicker
           dataSource={getTimeHours()}
           renderItem={(data, index, isSelected) => (
@@ -41,6 +41,7 @@ export default function ScrollTimePicker({warpperColor, inputChangeHandler}) {
           wrapperHeight={180}
           wrapperWidth={150}
           wrapperColor={warpperColor}
+          
           itemHeight={60}
           highlightColor='#d8d8d8'
           highlightBorderWidth={2}

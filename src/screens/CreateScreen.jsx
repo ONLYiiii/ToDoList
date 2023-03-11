@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState} from 'react';
-import { Text, StyleSheet, TouchableOpacity, Modal, Pressable} from 'react-native';
+import { Text, StyleSheet, TouchableOpacity, Modal, Pressable, Alert} from 'react-native';
 import { Button, View, ScrollView, ZStack, Box } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SvgXml } from 'react-native-svg';
 import { useData} from '../hooks';
 import {Calendar,ScrollTimePicker} from '../components';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
@@ -25,7 +26,7 @@ const CreateScreen = ({ route }) => {
     timestart: "",
     dateAt: newDate.fullDate,
     howlong: 0,
-    icon: newIconActivitySelected,
+    icon: newIconActivitySelected.iconActivitySelected,
   })
 
   function onShowCalenderChange() {
@@ -62,14 +63,14 @@ const CreateScreen = ({ route }) => {
           <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
             สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
           </Text>
-          <TouchableOpacity 
+          <TouchableOpacity
             onPress={() => {
               setModalVisible(false)
               navigation.navigate('HomeScreen')
             }} 
             style={{padding: 5}}
           >
-              <MaterialCommunityIcons name="close-circle" size={30} color="#aaa"/>
+            <MaterialCommunityIcons name="close-circle" size={30} color="#aaa"/>
           </TouchableOpacity>
         </View>
 
@@ -110,33 +111,30 @@ const CreateScreen = ({ route }) => {
           inputChangeHandler={handlerCreateActivity}
         />
 
-        <TouchableOpacity
+        <Button
           onPress={() => setShowCalendar(true)}
+          p={0}
           style={{
-            flexDirection: 'row',
             width: 150,
             paddingVertical: 3,
             backgroundColor: '#eee',
             borderRadius: 10,
             alignSelf: 'center',
             justifyContent: 'center',
-            alignItems: 'center',
             borderWidth: 1,
             borderColor: '#e1e1e1'
           }}
         >
-          <View>
+          <View style={{ flexDirection: 'row', alignItems: 'center'}}>
             <MaterialCommunityIcons 
               name="calendar-multiselect"
               size={36}
               color="#666AF6"
-              style={{marginRight: 12}}
+              style={{marginRight: 10}}
             />
-          </View>
-          <View>
             <Text style={{fontFamily: 'Sarabun-Medium'}}>{`${newDate.day}/${newDate.monthNum}/${newDate.year}`}</Text>
           </View>
-        </TouchableOpacity>
+        </Button>
         {/* Modal Calendar */}
         {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
 
@@ -202,26 +200,32 @@ const CreateScreen = ({ route }) => {
             เพิ่มโน๊ต ลิ้งค์การประชุม หรือ เบอร์โทรศัพท์..
           </Text>
         </Box>
-        <TouchableOpacity
+
+        <Button
+          backgroundColor={'#666AF6'}
+          _pressed={{backgroundColor: '#878AF5'}}
+          p={0}
           style={styles.CreatelastButton}
-          onPress={() => {handleSubmitCreateActivity()
-            navigation.replace('HomeScreen')
+          onPress={(activityData.timestart == "" || activityData.howlong == 0) ? () =>
+          Alert.alert('คำเตือน', 'กรุณาใส่ข้อมูลให้ครบถ้วน', [
+            {text: 'OK'},
+          ]) : () => {
+              handleSubmitCreateActivity()
+              navigation.replace('HomeScreen')
           }}
         >
           <Text style={{ 
-            alignSelf: 'center',
-            marginTop: 5,
+            textAlign: 'center',
             color: '#ffffff',
             fontFamily: 'Sarabun-Regular',
             fontSize: 30 }}
           >สร้างงาน</Text>
-        </TouchableOpacity>
+        </Button>
         </ScrollView>
       </Modal>
       
       <Modal animationType='fade' transparent={true} visible={modalPicTime} >
           <Pressable style={{alignItems: 'center',justifyContent: 'center',flex:1,}} onPress = {() => setmodalPicTime(false)}>
-            {/* <TouchableWithoutFeedback> */}
               <View style ={{ 
                 width: '75%',
                 height: 'auto',
@@ -232,33 +236,36 @@ const CreateScreen = ({ route }) => {
                   margin: 10,
                   fontSize: 15,
                   fontFamily:'Sarabun-Medium',
-                  color: '#ffffff'
+                  color: '#ffffff95'
                 }}>ระบุเวลาทำกิจกรรม</Text>
                 <Text style ={{
                   alignSelf: 'center',
                   fontSize: 13,
                   fontFamily:'Sarabun-Medium',
-                  color: '#ffffff85',
+                  color: '#ffffff95',
                   }}>ชั่วโมง : นาที</Text>
                 <View style={{
-                  width: '30%', 
-                  height: '15%',
-                  backgroundColor: '#F4863C',
-                  borderRadius: 10,
-                  alignSelf: 'flex-end',
-                  marginTop: 70,
-                  marginHorizontal: 10,
-                  justifyContent: 'center'
+                  width: 'auto', 
+                  height: 'auto',
+                  alignSelf: 'center',
+                  justifyContent: 'center',
+                  marginBottom: 10
                 }}>
-                  <ScrollTimePicker warpperColor={'#878AF5'} />
-                  <Text style={{
-                    alignSelf: 'center',
-                    fontFamily:'Sarabun-Medium',
-                    color: '#F9F9F9'
-                  }}>เสร็จสิ้น</Text>
+                  <ScrollTimePicker 
+                    warpperColor={'#878AF5'}
+                    inputChangeHandler={handlerCreateActivity}
+                  />
+                  <Button 
+                    onPress={() => setmodalPicTime(false)}
+                    style={{
+                      alignSelf: 'center',
+                      fontFamily:'Sarabun-Medium',
+                      backgroundColor: '#F4863C',
+                      color: '#F9F9F9'
+                    }}
+                  >เสร็จสิ้น</Button>
                 </View>
               </View>
-            {/* </TouchableWithoutFeedback> */}
           </Pressable>
       </Modal>
     </>
@@ -305,7 +312,6 @@ const styles = StyleSheet.create({
   CreatelastButton: {
     width: '85%',
     height: 65,
-    backgroundColor: "#666AF6",
     alignSelf: 'center',
     marginTop: 20,
     marginBottom: 26,

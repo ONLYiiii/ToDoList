@@ -19,16 +19,8 @@ const Activity_DATA = [
     timestart: "08:00",
     dateAt: "2023-03-05",
     howlong: 60,
-    icon: NewIconActivity.iconActivitySelected,
-  },
-  {
-    id: '2',
-    name: 'รับประทานอาหาร',
-    timestart: "09:00",
-    dateAt: "2023-03-06",
-    howlong: 60,
-    icon: NewIconActivity.iconActivitySelected,
-  },
+    icon: light.icons.alarm,
+  }
 ]
 
 export const DataContext = createContext({
