@@ -11,21 +11,23 @@ import {
   newTextActivity,
 } from '../constants';
 import PropTypes from 'prop-types';
-import { newSelectIconActivity } from '../constants/mocks';
+
 const Activity_DATA = [
   {
     id: '1',
     name: 'ตื่นนอน',
     timestart: "08:00",
     dateAt: "2023-03-05",
-    howlong: 60
+    howlong: 60,
+    icon: NewIconActivity.iconActivitySelected,
   },
   {
     id: '2',
     name: 'รับประทานอาหาร',
     timestart: "09:00",
     dateAt: "2023-03-06",
-    howlong: 60
+    howlong: 60,
+    icon: NewIconActivity.iconActivitySelected,
   },
 ]
 
@@ -38,22 +40,22 @@ export const DataContext = createContext({
 
 function activityReducer(state, action) {
   switch (action.type){
-      case 'ADD' :
-          const id = new Date().getTime().toString()
-          return [{...action.payload, id: id}, ...state]
-      case 'UPDATE':
-          const updatableActivityIndex = state.findIndex(
-              (activity) => activity.id === action.payload.id
-          )
-          const updatableActivity = state[updatableActivityIndex]
-          const updatedItem = { ...updatableActivity, ...action.payload.data}
-          const updatedActivity = [...state]
-          updatedActivity[updatableActivityIndex] = updatedItem
-          return updatedActivity
-      case 'DELETE':
-          return state.filter((expense) => expense.id !== action.payload)
-      default:
-          return state
+    case 'ADD' :
+        const id = new Date().getTime().toString()
+        return [{...action.payload, id: id}, ...state]
+    case 'UPDATE':
+        const updatableActivityIndex = state.findIndex(
+            (activity) => activity.id === action.payload.id
+        )
+        const updatableActivity = state[updatableActivityIndex]
+        const updatedItem = { ...updatableActivity, ...action.payload.data}
+        const updatedActivity = [...state]
+        updatedActivity[updatableActivityIndex] = updatedItem
+        return updatedActivity
+    case 'DELETE':
+        return state.filter((expense) => expense.id !== action.payload)
+    default:
+        return state
   }
 }
 

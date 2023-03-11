@@ -6,12 +6,12 @@ import {
 } from 'native-base'
 
 import editing from '../assets/icons/edit.svg'
-import { useData, useTheme } from '../hooks'
+import { useData } from '../hooks'
 import { SvgXml } from 'react-native-svg'
 
-const ListActivity = ({name,timestart}) => {
-  const {icons} = useData()
-
+const ListActivity = ({name,timestart, _id}) => {
+  const {activity} = useData()
+  // console.log(_id)
   return (
     <View
       flexDirection={'row'}
@@ -32,7 +32,7 @@ const ListActivity = ({name,timestart}) => {
             justifyContent={'center'}
             alignItems={'center'}
           >
-            <SvgXml fill={'#fff'} width={40} height={40} xml={icons} />
+            <SvgXml fill={'#fff'} width={30} height={30} xml={activity[_id].icon} />
           </Box>
         </View>
         <View

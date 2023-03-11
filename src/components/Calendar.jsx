@@ -4,7 +4,7 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { useData } from '../hooks'
 import { getFormatDateFromCalendar, getMonthText } from "../utils/date";
 
-const Calendar = ({showCalendar,setShowCalendar}) => {
+const Calendar = ({showCalendar,onShowCalenderChange}) => {
   const {setNewDate} = useData()
 
   const handleConfirm = (date) => {
@@ -16,7 +16,7 @@ const Calendar = ({showCalendar,setShowCalendar}) => {
       year: getFormatDateFromCalendar(date).split('-')[0],
       fullDate: getFormatDateFromCalendar(date),
     })
-    setShowCalendar()
+    onShowCalenderChange()
   };
 
   return (
@@ -24,7 +24,7 @@ const Calendar = ({showCalendar,setShowCalendar}) => {
       isVisible={showCalendar}
       mode="date"
       onConfirm={handleConfirm}
-      onCancel={setShowCalendar}
+      onCancel={onShowCalenderChange}
     />
   )
 }

@@ -25,7 +25,7 @@ const HomeScreen = () => {
   const {icons} = useTheme()
   const {newDate, activity} = useData()
   const navigation = useNavigation()
-  // console.log(expenses)
+  console.log(activity)
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSelectIcon, setShowSelectIcon] = useState(false)
 
@@ -88,7 +88,7 @@ const HomeScreen = () => {
         <VStack>
           {activity.map((item, index, array) => (
             <View key={item.id}>
-              <ListActivity name={item.name} timestart={item.timestart}  />
+              <ListActivity name={item.name} timestart={item.timestart} _id={index}  />
               {index+1 != array.length && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
             </View>
           ))}
@@ -194,7 +194,7 @@ const HomeScreen = () => {
       </Box>
 
       {/* Modal Calendar */}
-      {showCalendar && <Calendar showCalendar={showCalendar}  setShowCalendar={setShowCalendar} />}
+      {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
       {/* Modal Create Activity Select Icon */}
       {showSelectIcon && <CreateActivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
     </Background>

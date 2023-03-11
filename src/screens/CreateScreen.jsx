@@ -18,7 +18,7 @@ const CreateScreen = ({ route }) => {
   const [selectHowlong,setSelectHowlong] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false)
   const [modalPicTime,setmodalPicTime] = useState(false);
-  const {newIconActivitySelected, newDate}= useData()
+  const {newIconActivitySelected, newDate, addActivity}= useData()
   const timeHowlong = [1,15,30,45,60,90]
   const [activityData, setActivityData] = useState({
     name: textActivity,
@@ -40,9 +40,13 @@ const CreateScreen = ({ route }) => {
     }})
   }
 
-  useEffect(()=> {
-    console.log(activityData)
-  }, [activityData])
+  function handleSubmitCreateActivity() {
+    addActivity(activityData)
+  }
+
+  // useEffect(()=> {
+  //   console.log(activityData)
+  // }, [activityData])
 
   return (
     <>
@@ -106,29 +110,33 @@ const CreateScreen = ({ route }) => {
           inputChangeHandler={handlerCreateActivity}
         />
 
-        <Box 
+        <TouchableOpacity
           onPress={() => setShowCalendar(true)}
           style={{
-          flexDirection: 'row',
-          width: 150,
-          paddingVertical: 3,
-          backgroundColor: '#eee',
-          borderRadius: 10,
-          alignSelf: 'center',
-          justifyContent: 'center',
-          alignItems: 'center',
-          borderWidth: 1,
-          borderColor: '#e1e1e1'
+            flexDirection: 'row',
+            width: 150,
+            paddingVertical: 3,
+            backgroundColor: '#eee',
+            borderRadius: 10,
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderWidth: 1,
+            borderColor: '#e1e1e1'
           }}
         >
-          <MaterialCommunityIcons 
-            name="calendar-multiselect"
-            size={36}
-            color="#666AF6"
-            style={{marginRight: 10}}
-          />
-          <Text style={{fontFamily: 'Sarabun-Medium'}}>{`${newDate.day}/${newDate.monthNum}/${newDate.year}`}</Text>
-        </Box>
+          <View>
+            <MaterialCommunityIcons 
+              name="calendar-multiselect"
+              size={36}
+              color="#666AF6"
+              style={{marginRight: 12}}
+            />
+          </View>
+          <View>
+            <Text style={{fontFamily: 'Sarabun-Medium'}}>{`${newDate.day}/${newDate.monthNum}/${newDate.year}`}</Text>
+          </View>
+        </TouchableOpacity>
         {/* Modal Calendar */}
         {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
 
@@ -196,6 +204,9 @@ const CreateScreen = ({ route }) => {
         </Box>
         <TouchableOpacity
           style={styles.CreatelastButton}
+          onPress={() => {handleSubmitCreateActivity()
+            navigation.replace('HomeScreen')
+          }}
         >
           <Text style={{ 
             alignSelf: 'center',
