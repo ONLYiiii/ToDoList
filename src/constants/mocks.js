@@ -31,22 +31,6 @@ export const newTimeSelected = {
   time: getDateNow(),
 }
 
-// export const iconActivity = [
-//   light.icons.alarmIcon,
-//   light.icons.bookEducation,
-//   light.icons.codingBrowser,
-//   light.icons.consoleController,
-//   light.icons.dumbbell,
-//   light.icons.moon,
-//   light.icons.paintPallette,
-//   light.icons.plus,
-//   light.icons.restaurant,
-//   light.icons.run,
-//   light.icons.school,
-//   light.icons.shoppingCart,
-//   light.icons.tv,
-// ]
-
 export const iconActivity = [
   {
     name: "กินข้าว",

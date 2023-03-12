@@ -1,26 +1,22 @@
 /* eslint-disable react/prop-types */
-import { useEffect, useState} from 'react';
-import { Text, StyleSheet, TouchableOpacity, Modal, Pressable, Alert} from 'react-native';
-import { Button, View, ScrollView, ZStack, Box } from 'native-base';
+import { useState} from 'react';
+import { Text, StyleSheet, TouchableOpacity, Modal, Alert} from 'react-native';
+import { Button, View, ZStack, Box } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
 import { SvgXml } from 'react-native-svg';
+
+import { toHoursAndMinutes } from '../utils/date';
 import { useData} from '../hooks';
-import {Calendar,ScrollTimePicker} from '../components';
-import { TouchableHighlight } from 'react-native-gesture-handler';
+import {DateTimePicker,ScrollTimePicker, Background} from '../components';
 
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
-  const {createModalVisiable} = route.params;
   const {textActivity} = route.params;
-  // const {iconSelected} = route.params
-  const [modalVisible, setModalVisible] = useState(createModalVisiable);
+  const {newIconActivitySelected, newDate, addActivity}= useData()
   const [selectHowlong,setSelectHowlong] = useState(0);
   const [showCalendar, setShowCalendar] = useState(false)
   const [modalPicTime,setmodalPicTime] = useState(false);
-  const {newIconActivitySelected, newDate, addActivity}= useData()
-  const timeHowlong = [1,15,30,45,60,90]
   const [activityData, setActivityData] = useState({
     name: textActivity,
     timestart: "",
@@ -28,10 +24,6 @@ const CreateScreen = ({ route }) => {
     howlong: 0,
     icon: newIconActivitySelected.iconActivitySelected,
   })
-
-  function onShowCalenderChange() {
-    setShowCalendar(false)
-  }
 
   function handlerCreateActivity(inputIdentifier, enteredValue) {
     setActivityData((curInputValues) => {
@@ -51,13 +43,13 @@ const CreateScreen = ({ route }) => {
 
   return (
     <>
-      <Modal animationType='fade' transparent={false} visible={modalVisible}>
-        <ScrollView 
+      <Background isScrollView={true}>
+        {/* <ScrollView 
           showsVerticalScrollIndicator={false}
           _contentContainerStyle={{
             height: 'auto',
           }}
-        >
+        > */}
           
         <View style={styles.title}>
           <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
@@ -65,7 +57,6 @@ const CreateScreen = ({ route }) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              setModalVisible(false)
               navigation.navigate('HomeScreen')
             }} 
             style={{padding: 5}}
@@ -107,8 +98,10 @@ const CreateScreen = ({ route }) => {
         </Text>
 
         <ScrollTimePicker
+          mode={'timestart'}
+          color={'#666AF6'}
           warpperColor={'#fff'}
-          inputChangeHandler={handlerCreateActivity}
+          handlerCreateActivity={handlerCreateActivity}
         />
 
         <Button
@@ -136,7 +129,7 @@ const CreateScreen = ({ route }) => {
           </View>
         </Button>
         {/* Modal Calendar */}
-        {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
+        {showCalendar && <DateTimePicker mode={"date"} showCalendar={showCalendar} setShowCalendar={setShowCalendar} />}
 
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 30}]}>
           <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>นานเเค่ไหน?</Text>
@@ -161,7 +154,7 @@ const CreateScreen = ({ route }) => {
               flexDirection={'row'}
               style={{height: 36, justifyContent: 'space-evenly'}}
             >
-              {timeHowlong.map((item, index) => 
+              {/* {activityData.howlong == 0 ? ([1,15,30,45,60,90].map((item, index) => 
                 <Button
                   key={index}
                   onPress={() => {
@@ -172,9 +165,17 @@ const CreateScreen = ({ route }) => {
                   p={0}
                   w={10}
                 >
+                  <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>{`${item} นาที`}</Text>
                   <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>{item}</Text>
                 </Button>
-              )}
+                )) 
+              : <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>
+                  {toHoursAndMinutes(activityData.howlong)}
+                </Text>
+              } */}
+              <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>
+                {toHoursAndMinutes(activityData.howlong)}
+              </Text>
             </Box>
           </Box>
         </ZStack>
@@ -207,7 +208,7 @@ const CreateScreen = ({ route }) => {
           p={0}
           style={styles.CreatelastButton}
           onPress={(activityData.timestart == "" || activityData.howlong == 0) ? () =>
-          Alert.alert('คำเตือน', 'กรุณาใส่ข้อมูลให้ครบถ้วน', [
+          Alert.alert('แจ้งเตือน', 'กรุณาใส่ข้อมูลให้ครบถ้วน', [
             {text: 'OK'},
           ]) : () => {
               handleSubmitCreateActivity()
@@ -221,11 +222,11 @@ const CreateScreen = ({ route }) => {
             fontSize: 30 }}
           >สร้างงาน</Text>
         </Button>
-        </ScrollView>
-      </Modal>
+        {/* </ScrollView> */}
+      </Background>
       
       <Modal animationType='fade' transparent={true} visible={modalPicTime} >
-          <Pressable style={{alignItems: 'center',justifyContent: 'center',flex:1,}} onPress = {() => setmodalPicTime(false)}>
+          <Box style={{alignItems: 'center',justifyContent: 'center',flex:1,}}>
               <View style ={{ 
                 width: '75%',
                 height: 'auto',
@@ -233,16 +234,17 @@ const CreateScreen = ({ route }) => {
                 borderRadius:10
               }}>
                 <Text style={{
-                  margin: 10,
-                  fontSize: 15,
+                  marginVertical: 10,
+                  marginLeft: 15,
+                  fontSize: 16,
                   fontFamily:'Sarabun-Medium',
-                  color: '#ffffff95'
+                  color: '#ffffff'
                 }}>ระบุเวลาทำกิจกรรม</Text>
                 <Text style ={{
                   alignSelf: 'center',
                   fontSize: 13,
                   fontFamily:'Sarabun-Medium',
-                  color: '#ffffff95',
+                  color: '#F3F3F3',
                   }}>ชั่วโมง : นาที</Text>
                 <View style={{
                   width: 'auto', 
@@ -252,21 +254,24 @@ const CreateScreen = ({ route }) => {
                   marginBottom: 10
                 }}>
                   <ScrollTimePicker 
+                    mode={'howlong'}
+                    color={'#f39e65'}
                     warpperColor={'#878AF5'}
-                    inputChangeHandler={handlerCreateActivity}
+                    handlerCreateActivity={handlerCreateActivity}
                   />
                   <Button 
+                    bgColor={'#F4863C'}
+                    _pressed={{backgroundColor: '#f39e65'}}
                     onPress={() => setmodalPicTime(false)}
                     style={{
                       alignSelf: 'center',
                       fontFamily:'Sarabun-Medium',
-                      backgroundColor: '#F4863C',
                       color: '#F9F9F9'
                     }}
                   >เสร็จสิ้น</Button>
                 </View>
               </View>
-          </Pressable>
+          </Box>
       </Modal>
     </>
   );

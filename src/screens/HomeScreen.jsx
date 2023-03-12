@@ -12,7 +12,7 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
 import {
   Background,
-  Calendar,
+  DateTimePicker,
   ListActivity,
   ModernCalendarStrip,
   CreateActivitySelectIcon
@@ -28,13 +28,6 @@ const HomeScreen = () => {
   // console.log(activity)
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSelectIcon, setShowSelectIcon] = useState(false)
-
-  function onShowCalenderChange() {
-    setShowCalendar(false)
-  }
-  function onShowCreateAcititySelectIcon() {
-    setShowSelectIcon(false)
-  }
 
   return (
     <Background>
@@ -194,9 +187,9 @@ const HomeScreen = () => {
       </Box>
 
       {/* Modal Calendar */}
-      {showCalendar && <Calendar showCalendar={showCalendar}  onShowCalenderChange={onShowCalenderChange} />}
+      {showCalendar && <DateTimePicker mode={"date"} showCalendar={showCalendar}  setShowCalendar={setShowCalendar} />}
       {/* Modal Create Activity Select Icon */}
-      {showSelectIcon && <CreateActivitySelectIcon showSelectIcon={showSelectIcon} onShowSelectIcon={onShowCreateAcititySelectIcon} />}
+      {showSelectIcon && <CreateActivitySelectIcon showSelectIcon={showSelectIcon} setShowSelectIcon={setShowSelectIcon} />}
     </Background>
   )
 }

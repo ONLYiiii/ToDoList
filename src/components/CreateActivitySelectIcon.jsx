@@ -11,7 +11,7 @@ import { useData } from '../hooks';
 
 
 // eslint-disable-next-line react/prop-types
-const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
+const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
   const navigation = useNavigation()
   const { iconActivity, newIconActivitySelected, setIconActivitySelected } = useData()
   const [selectIconPlus, setSelectIconPlus] = useState(false)
@@ -27,7 +27,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              onShowSelectIcon(false)
+              setShowSelectIcon(false)
             }}
             style={{padding: 5}}
           >
@@ -76,7 +76,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
           w={'90%'}
           h={'40%'}
           mt={5}
-          p={5}
+          p={1}
           style={{
             flexDirection: 'row',
             flexWrap: 'wrap',
@@ -89,8 +89,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
               (index+1) < array.length-3 && (
                 <View
                   key={index}
-                  mr={(index+1)%3 != 0 ? 8 : 0}
-                  mb={(index+1)<array.length-3 ? 6 : 0}
+                  m={5}
                   style={{width: 'auto', height: 'auto'}}
                 >
                   <Button
@@ -114,8 +113,8 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
                     }}
                     style={{ shadowColor: '#000', elevation: 20 }}
                   >
-                    {(index+1)==9 ? <SvgXml stroke={'#F1BC'} width="40" height="40" xml={item.icon} /> :
-                    <SvgXml fill={'#F1BC'}  width="40" height="40" xml={item.icon} />}
+                    {(index+1)==9 ? <SvgXml stroke={'#F4863C'} width="40" height="40" xml={item.icon} /> :
+                    <SvgXml fill={'#F4863C'}  width="40" height="40" xml={item.icon} />}
                   </Button>
                   <Text style={{marginTop: 7,textAlign: 'center', fontFamily: 'Sarabun-Regular'}}>{item.name}</Text>
                 </View>
@@ -124,7 +123,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
         </View>
 
         <Modal animationType='slide' transparent={true} visible={selectIconPlus}>
-          <View style={{position: 'absolute', width: '100%', top: 200, alignSelf: 'center'}}>
+          <View style={{position: 'absolute', width: '100%', top: 210, alignSelf: 'center'}}>
             <View style={{
               width: '80%',
               height: 65,
@@ -154,7 +153,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
             <View
               w={'80%'}
               h={'auto'}
-              p={5}
+              p={0}
               style={{
                 flexDirection: 'row',
                 flexWrap: 'wrap',
@@ -169,8 +168,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
                 (index+1) > 9 && (
                   <View
                     key={index}
-                    mr={1}
-                    mb={(index+1)< 11 ? 6 : 0}
+                    m={4}
                     style={{width: 'auto', height: 'auto'}}
                   >
                     <Button
@@ -190,7 +188,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
                       }}
                       style={{ shadowColor: '#000', elevation: 20 }}
                     >
-                      <SvgXml fill={'#F1BC'} width="40" height="40" xml={item.icon} />
+                      <SvgXml fill={'#F4863C'} width="40" height="40" xml={item.icon} />
                     </Button>
                     <Text style={{marginTop: 7,textAlign: 'center', color: '#fff', fontFamily: 'Sarabun-Regular'}}>{item.name}</Text>
                   </View>
@@ -201,21 +199,20 @@ const CreateActivitySelectIcon = ({ ModalVisiable, onShowSelectIcon }) => {
         </Modal>
 
 
-        <TouchableOpacity style={styles.CreatelastButton} onPress={() => {
-          onShowSelectIcon(false)
+        <Button style={styles.CreatelastButton} p={0} onPress={() => {
+          setShowSelectIcon(false)
           navigation.navigate('CreateScreen', {
-            createModalVisiable: true,
             textActivity: textActivity
           })
         }}>
           <Text style={{ 
             textAlign: 'center',
             marginTop: 5,
-            color: '#ffffff',
+            color: '#fff',
             fontFamily: 'Sarabun-Regular',
             fontSize: 30
             }}>สร้างงาน</Text>
-        </TouchableOpacity>
+        </Button>
       </Modal>
     </Background>
   );
@@ -244,9 +241,10 @@ const styles = StyleSheet.create({
   CreatelastButton: {
     width: '85%',
     height: 65,
+    position: 'absolute',
     backgroundColor: "#666AF6",
     alignSelf: 'center',
-    marginTop: 80,
+    bottom: 30,
     borderRadius: 20,
   },
 });
