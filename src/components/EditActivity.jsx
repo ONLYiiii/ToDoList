@@ -78,7 +78,7 @@ const EditActivity = ({idActivity, setModalEdit,modalEdit}) => {
             </Button>
             <Button
               p={0}
-              onPress={() => deleteExpenseHandler}
+              onPress={() => setModalEdit(false)}
               backgroundColor={'#C7C7D1'}
               _pressed={{backgroundColor: '#d1d1d1'}}
               style={{
