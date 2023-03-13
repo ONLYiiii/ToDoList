@@ -5,17 +5,17 @@ export const imageDataSignIn = [
   {
     name: 'Facebook',
     color: '#CFDFFF',
-    img: light.assets.facebook,
+    img: light.icons.facebook,
   },
   {
     name: 'Google',
     color: '#FFE7C2',
-    img: light.assets.google,
+    img: light.icons.google,
   },
   {
     name: 'Apple',
     color: '#DBDBDB',
-    img: light.assets.apple,
+    img: light.icons.apple,
   }
 ]
 

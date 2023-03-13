@@ -48,13 +48,7 @@ const SignInScreen = () => {
           backgroundColor={'#F3F8FC'}
           borderRadius={15}
           fontSize={14}
-          variant='ghost'
-          focusStyle={{
-            backgroundColor: '#F3F8FC',
-            borderColor: 'blue.300',
-            borderWidth: 2,
-            fontSize: 16
-          }}
+          variant='unstyled'
           InputLeftElement={
             <Icon 
               as={<MaterialIcons name="email" />}
@@ -71,13 +65,7 @@ const SignInScreen = () => {
             backgroundColor={'#F3F8FC'}
             borderRadius={15}
             fontSize={14}
-            variant='ghost'
-            focusStyle={{
-              backgroundColor: '#F3F8FC',
-              borderColor: 'blue.300',
-              borderWidth: 2,
-              fontSize: 16
-            }}
+            variant='unstyled'
             type={show ? "text" : "password"}
             InputLeftElement={
                 <Icon as={<MaterialIcons name={"lock"} />}
@@ -96,31 +84,6 @@ const SignInScreen = () => {
                 </Pressable>
             } placeholder="รหัสผ่าน"
         />
-            
-        {/* <Stack direction={'row'} alignItems={'center'} justifyContent={'space-between'} w={'75%'}>
-          <Checkbox
-            value="test"
-            accessibilityLabel="Remember Me"
-            colorScheme="lightBlue"
-            borderColor={'blue.300'}
-            size={'sm'}
-            _text={{fontSize: 16}}
-          >
-            จดจำฉัน
-          </Checkbox>
-
-          <Button
-            p={0}
-            variant={'ghost'}
-            _text={{color: 'black', fontSize: 16}}
-            _pressed={{
-              bg: isPressedColor,
-              onPress: onPress,
-              transform: [{ scale: scaleBtn }]
-          }}
-            onPress={() => navigation.navigate('ForgetPasswordScreen')}
-          >ลืมรหัสผ่าน?</Button>
-        </Stack> */}
           
         <Button
           w={"80%"}
@@ -129,7 +92,6 @@ const SignInScreen = () => {
           _text={{fontSize: 23, fontFamily: 'Sarabun-SemiBold'}}
           _pressed={{
             bgColor: 'transparent',
-            // onPress: ()=>navigation.navigate('SignUpScreen'),
             transform: [{ scale: 0.96 }]
           }}
           borderRadius={30}
