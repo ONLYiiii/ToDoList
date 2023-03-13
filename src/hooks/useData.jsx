@@ -5,29 +5,29 @@ import {
   light,
   Image,
   NewDate,
-  NewTime,
+  NewDateStrip,
   IconActivity,
-  NewIconActivity,
-  newTextActivity,
 } from '../constants';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 
 const Activity_DATA = [
   {
-    id: '1',
+    id: new Date().getTime().toString(),
     name: 'ตื่นนอน',
-    timestart: "08:00",
-    dateAt: "2023-03-05",
+    timestart: "09:00",
+    dateAt: moment().format("YYYY-MM-DD"),
     howlong: 60,
     icon: light.icons.alarm,
-  }
+    comment: "- แปรงฟัน"
+  },
 ]
 
 export const DataContext = createContext({
   activity: [],
-  addActivity: ({ name, timestart, dateAt, howlong, icon }) => {},
+  addActivity: ({ name, timestart, dateAt, howlong, icon, comment }) => {},
   deleteActivity: (id) => {},
-  updateActivity: (id, { name, timestart, dateAt, howlong, icon }) => {},
+  updateActivity: (id, { name, timestart, dateAt, howlong, icon, comment }) => {},
 });
 
 function activityReducer(state, action) {
@@ -45,7 +45,7 @@ function activityReducer(state, action) {
         updatedActivity[updatableActivityIndex] = updatedItem
         return updatedActivity
     case 'DELETE':
-        return state.filter((expense) => expense.id !== action.payload)
+        return state.filter((activity) => activity.id !== action.payload)
     default:
         return state
   }
@@ -57,15 +57,16 @@ export const DataProvider = ({ children }) => {
   const [theme, setTheme] = useState(light)
   const [image, setImage] = useState(Image)
   const [newDate, setNewDate] = useState(NewDate)
-  const [newTime, setNewTime] = useState(NewTime)
+  const [dateStripSelect, setDateStripSelect] = useState(NewDateStrip)
   const [iconActivity, setIconActivity] = useState(IconActivity)
-  const [newIconActivitySelected, setIconActivitySelected] = useState(NewIconActivity)
-  const [textActivity,setTextActivity] = useState(newTextActivity)
 
   const [activityState, dispatch] = useReducer(activityReducer, Activity_DATA)
 
   function addActivity(activityData) {
       dispatch({ type: 'ADD', payload: activityData})
+      activityState.sort((a,b)=>{
+        return new Date(b.id) - new Date(a.id);
+      })
   }
 
   function deleteActivity(id) {
@@ -83,14 +84,10 @@ export const DataProvider = ({ children }) => {
     setImage,
     newDate,
     setNewDate,
-    newTime,
-    setNewTime,
+    dateStripSelect,
+    setDateStripSelect,
     iconActivity,
     setIconActivity,
-    newIconActivitySelected,
-    setIconActivitySelected,
-    textActivity,
-    setTextActivity,
     activity: activityState,
     addActivity: addActivity,
     deleteActivity: deleteActivity,

@@ -7,15 +7,15 @@ import { SvgXml } from 'react-native-svg';
 
 import Background from './Background';
 import { useData } from '../hooks';
-// import consolecontroller from '../assets/icons/moon.svg'
 
 
 // eslint-disable-next-line react/prop-types
 const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
   const navigation = useNavigation()
-  const { iconActivity, newIconActivitySelected, setIconActivitySelected } = useData()
+  const { iconActivity } = useData()
   const [selectIconPlus, setSelectIconPlus] = useState(false)
-  const [textActivity,setTextActivity] = useState("")
+  const [textIconActivity,setTextIconActivity] = useState("")
+  const [iconSelected,setIconSelected] = useState(iconActivity[0].icon)
 
   return (
     <Background>
@@ -52,7 +52,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
           width: '80%'
         }}>
           <View style={styles.BoxFocus}>
-            <SvgXml fill={'#878AF5'} width={34} height={34} xml={newIconActivitySelected.iconActivitySelected} /> 
+            <SvgXml fill={'#878AF5'} width={34} height={34} xml={iconSelected} /> 
           </View>
           <View w={'80%'}>
             <Input
@@ -66,8 +66,8 @@ const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
               fontSize={16}
               focusOutlineColor={'blue.500'}
               _focus={{ borderBottomWidth: 3 }}
-              value={textActivity}
-              onChangeText={(text) => setTextActivity(text)}
+              value={textIconActivity}
+              onChangeText={(text) => setTextIconActivity(text)}
             />
           </View>
         </View>
@@ -102,8 +102,8 @@ const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
                     onPress={
                       (index+1)==9 ? () => setSelectIconPlus(true)
                       : () => {
-                        setIconActivitySelected({iconActivitySelected: item.icon})
-                        setTextActivity(item.name)
+                        setIconSelected(item.icon)
+                        setTextIconActivity(item.name)
                       }
                     }
                     borderWidth={1}
@@ -179,7 +179,7 @@ const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
                       alignItems={'center'}
                       borderColor={'#e1e1e1'}
                       onPress={() => {
-                        setIconActivitySelected({iconActivitySelected: item.icon})
+                        setIconSelected(item.icon)
                         setSelectIconPlus(false)
                       }}
                       borderWidth={1}
@@ -192,17 +192,19 @@ const CreateActivitySelectIcon = ({ ModalVisiable, setShowSelectIcon }) => {
                     </Button>
                     <Text style={{marginTop: 7,textAlign: 'center', color: '#fff', fontFamily: 'Sarabun-Regular'}}>{item.name}</Text>
                   </View>
-                )  
+                )
               ))}
             </View>
-          </View>  
+          </View>
         </Modal>
 
 
         <Button style={styles.CreatelastButton} p={0} onPress={() => {
           setShowSelectIcon(false)
           navigation.navigate('CreateScreen', {
-            textActivity: textActivity
+            isEditing: false,
+            textIconActivity: textIconActivity,
+            iconSelected: iconSelected
           })
         }}>
           <Text style={{ 

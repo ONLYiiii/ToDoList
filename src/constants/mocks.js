@@ -27,8 +27,8 @@ export const selectedDate = {
     fullDate: getDateNow(),
 }
 
-export const newTimeSelected = {
-  time: getDateNow(),
+export const newDateStrip = {
+  dateStrip: getDateNow(),
 }
 
 export const iconActivity = [
@@ -85,11 +85,3 @@ export const iconActivity = [
     icon: light.icons.alarm,
   }
 ]
-
-export const newSelectIconActivity = {
-  iconActivitySelected: light.icons.shoppingCart
-}
-
-export const newTextActivity = {
-  textActivity: ""
-}

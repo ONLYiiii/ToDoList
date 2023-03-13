@@ -1,28 +1,31 @@
 /* eslint-disable react/prop-types */
 import { useState} from 'react';
 import { Text, StyleSheet, TouchableOpacity, Modal, Alert} from 'react-native';
-import { Button, View, ZStack, Box } from 'native-base';
+import { Button, View, ZStack, Box, TextArea } from 'native-base';
 import { useNavigation } from '@react-navigation/native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { SvgXml } from 'react-native-svg';
 
-import { toHoursAndMinutes } from '../utils/date';
+import { toHoursAndMinutes, checkTimeSelected } from '../utils/date';
 import { useData} from '../hooks';
 import {DateTimePicker,ScrollTimePicker, Background} from '../components';
 
 const CreateScreen = ({ route }) => {
   const navigation = useNavigation()
-  const {textActivity} = route.params;
-  const {newIconActivitySelected, newDate, addActivity}= useData()
-  const [selectHowlong,setSelectHowlong] = useState(0);
+  const {isEditing} = route.params
+  const {selectedActivity} = route.params
+  const {textIconActivity} = route.params
+  const {iconSelected} = route.params
+  const {newDate, addActivity, updateActivity}= useData()
   const [showCalendar, setShowCalendar] = useState(false)
   const [modalPicTime,setmodalPicTime] = useState(false);
   const [activityData, setActivityData] = useState({
-    name: textActivity,
-    timestart: "",
-    dateAt: newDate.fullDate,
-    howlong: 0,
-    icon: newIconActivitySelected.iconActivitySelected,
+    name: isEditing ? selectedActivity.name : textIconActivity,
+    timestart: isEditing ? selectedActivity.timestart : "",
+    dateAt: isEditing ? selectedActivity.dateAt : newDate.fullDate,
+    howlong: isEditing ? selectedActivity.howlong : 0,
+    icon: isEditing ? selectedActivity.icon : iconSelected,
+    comment: isEditing ? selectedActivity.comment : "- เดินเล่น",
   })
 
   function handlerCreateActivity(inputIdentifier, enteredValue) {
@@ -34,7 +37,18 @@ const CreateScreen = ({ route }) => {
   }
 
   function handleSubmitCreateActivity() {
-    addActivity(activityData)
+    if (checkTimeSelected(activityData.timestart) == true) {
+      console.log("create!!", checkTimeSelected(activityData.timestart))
+      if (isEditing) {
+        updateActivity(selectedActivity.id,activityData)
+      } else {
+        addActivity(activityData)
+      }
+      navigation.replace('HomeScreen')
+    } else { 
+      Alert.alert('แจ้งเตือน', 'กรุณาใส่เวลาเริ่มทำกิจกรรมให้มากกว่าเวลาปัจจบุัน', [{text: 'OK'},])
+    }
+    // addActivity(activityData)
   }
 
   // useEffect(()=> {
@@ -44,17 +58,15 @@ const CreateScreen = ({ route }) => {
   return (
     <>
       <Background isScrollView={true}>
-        {/* <ScrollView 
-          showsVerticalScrollIndicator={false}
-          _contentContainerStyle={{
-            height: 'auto',
-          }}
-        > */}
           
         <View style={styles.title}>
-          <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
+          {isEditing ? <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
+            แก้<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
+          </Text> 
+          : <Text style ={{fontFamily:'Sarabun-Medium',fontSize: 25 }}>
             สร้าง<Text style ={{color:'#878AF5',fontSize: 25}}>งาน</Text>
           </Text>
+          }
           <TouchableOpacity
             onPress={() => {
               navigation.navigate('HomeScreen')
@@ -73,19 +85,19 @@ const CreateScreen = ({ route }) => {
           marginTop: 30,
         }}>
           <View style={styles.BoxFocus}>
-            <SvgXml fill={'#878AF5'} width={34} height={34} xml={newIconActivitySelected.iconActivitySelected} /> 
+            <SvgXml fill={'#878AF5'} width={34} height={34} xml={iconSelected} /> 
           </View>
           <View w={'80%'} paddingY={2} borderBottomWidth={3} borderBottomColor={'gray.300'}>
             <Text
               mt={2}
               color={'gray.800'}
               style={{fontSize: 20, fontFamily: 'Sarabun-Regular'}}
-            >{textActivity}</Text>   
+            >{textIconActivity}</Text>   
           </View>
         </View>
       
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 24}]}>
-          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>เมื่อไหร่</Text>
+          <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>เวลาเริ่มกิจกรรม</Text>
         </View>
 
         <Text style={{
@@ -101,6 +113,7 @@ const CreateScreen = ({ route }) => {
           mode={'timestart'}
           color={'#666AF6'}
           warpperColor={'#fff'}
+          timestartEdit={isEditing && selectedActivity.timestart}
           handlerCreateActivity={handlerCreateActivity}
         />
 
@@ -125,11 +138,11 @@ const CreateScreen = ({ route }) => {
               color="#666AF6"
               style={{marginRight: 10}}
             />
-            <Text style={{fontFamily: 'Sarabun-Medium'}}>{`${newDate.day}/${newDate.monthNum}/${newDate.year}`}</Text>
+            <Text style={{fontFamily: 'Sarabun-Medium'}}>{isEditing ? `${selectedActivity.dateAt.split('-')[2]}/${selectedActivity.dateAt.split('-')[1]}/${selectedActivity.dateAt.split('-')[0]}` :  `${newDate.day}/${newDate.monthNum}/${newDate.year}`}</Text>
           </View>
         </Button>
         {/* Modal Calendar */}
-        {showCalendar && <DateTimePicker mode={"date"} showCalendar={showCalendar} setShowCalendar={setShowCalendar} />}
+        <DateTimePicker mode={"date"} showCalendar={showCalendar} setShowCalendar={setShowCalendar} editActivity={isEditing && selectedActivity.dateAt} />
 
         <View w={'80%'} style={[styles.textStartAcitity, {marginTop: 30}]}>
           <Text style={{fontSize: 16,fontFamily:'Sarabun-Medium'}}>นานเเค่ไหน?</Text>
@@ -154,25 +167,6 @@ const CreateScreen = ({ route }) => {
               flexDirection={'row'}
               style={{height: 36, justifyContent: 'space-evenly'}}
             >
-              {/* {activityData.howlong == 0 ? ([1,15,30,45,60,90].map((item, index) => 
-                <Button
-                  key={index}
-                  onPress={() => {
-                    setSelectHowlong(item)
-                    handlerCreateActivity("howlong", item)
-                  }}
-                  bgColor={ selectHowlong==item ? '#676BFA' : 'transparent'}
-                  p={0}
-                  w={10}
-                >
-                  <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>{`${item} นาที`}</Text>
-                  <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>{item}</Text>
-                </Button>
-                )) 
-              : <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>
-                  {toHoursAndMinutes(activityData.howlong)}
-                </Text>
-              } */}
               <Text style={{fontSize: 16, fontFamily: 'Sarabun-SemiBold', color: '#fff'}}>
                 {toHoursAndMinutes(activityData.howlong)}
               </Text>
@@ -192,14 +186,21 @@ const CreateScreen = ({ route }) => {
               เพิ่มงานย่อย
             </Text>
           </View>
-          <Text style={{
-            marginLeft: 15,
-            marginTop: 10,
-            fontFamily:'Sarabun-Regular',
-            color: '#727272'
-          }}>
-            เพิ่มโน๊ต ลิ้งค์การประชุม หรือ เบอร์โทรศัพท์..
-          </Text>
+          <TextArea 
+            w="100%"
+            // maxW="300"
+            h={'80%'}
+            value={activityData.comment}
+            onChangeText={(text) => handlerCreateActivity("comment", text)}
+            borderWidth={0}
+            fontSize={16}
+            fontFamily={'Sarabun-Regular'}
+            placeholder="เพิ่มโน๊ต ลิ้งค์การประชุม หรือ เบอร์โทรศัพท์.." 
+            style={{
+              borderBottomLeftRadius: 15,
+              borderBottomRightRadius: 15
+            }}
+          />
         </Box>
 
         <Button
@@ -207,12 +208,11 @@ const CreateScreen = ({ route }) => {
           _pressed={{backgroundColor: '#878AF5'}}
           p={0}
           style={styles.CreatelastButton}
-          onPress={(activityData.timestart == "" || activityData.howlong == 0) ? () =>
-          Alert.alert('แจ้งเตือน', 'กรุณาใส่ข้อมูลให้ครบถ้วน', [
-            {text: 'OK'},
-          ]) : () => {
-              handleSubmitCreateActivity()
-              navigation.replace('HomeScreen')
+          onPress={ () => {
+            (activityData.timestart == "" || activityData.howlong) == 0 ?
+            Alert.alert('แจ้งเตือน', 'กรุณาใส่ข้อมูลให้ครบถ้วน', [
+              {text: 'OK'},
+            ]) : handleSubmitCreateActivity()
           }}
         >
           <Text style={{ 
@@ -220,9 +220,8 @@ const CreateScreen = ({ route }) => {
             color: '#ffffff',
             fontFamily: 'Sarabun-Regular',
             fontSize: 30 }}
-          >สร้างงาน</Text>
+          >{isEditing ? "แก้งาน" : "สร้างงาน"}</Text>
         </Button>
-        {/* </ScrollView> */}
       </Background>
       
       <Modal animationType='fade' transparent={true} visible={modalPicTime} >
@@ -305,7 +304,8 @@ const styles = StyleSheet.create({
   BoxNote: {
     height: 200,
     marginVertical: 45,
-    borderRadius: 15
+    borderRadius: 15,
+    flexWrap: 'nowrap'
   },
   NoteTitle: {
     height: 40,

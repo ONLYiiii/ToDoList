@@ -2,7 +2,6 @@ import moment from 'moment';
 const monthNames = ["January", "February", "March", "April", "May", "June",
   "July", "August", "September", "October", "November", "December"
 ]
-const newDate = new Date()
 
 function padTo2Digits(num) {
   return num.toString().padStart(2, '0');
@@ -20,23 +19,26 @@ export function getMonthText(date) {
   return `${monthNames[date]}`
 }
 
-export function getDataMinusDays(date, days) {
-  return new Date(date.getFullYear(), date.getMonth(), date.getDate() - days)
+export function getFormatDate(date) {
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`
 }
 
 export function getFormatDateFromCalendar(date) {
-  // return `${date.getFullYear()}-${padTo2Digits(date.getMonth()+1)}-${padTo2Digits(date.getDate())}`
-  // console.log(date.getDate() + " | ", (new Date().getDate()))
   if (date.getDate() >= (new Date().getDate())) {
-    return date.toISOString().slice(0,10)
+    return `${date.getFullYear()}-${padTo2Digits(date.getMonth()+1)}-${padTo2Digits(date.getDate())}`
   } else {
     return ""
   }
 }
 
 export function checkTimeSelected(time) {
-  // if("21:00" ==)
-  console.log(new Date())
+  const timeNow = new Date()
+  if(+timeNow.getHours() < +time.split(":")[0] || (+timeNow.getHours() == +time.split(":")[0] && +timeNow.getMinutes() < +time.split(":")[1])) {
+    // console.log("true | " + timeNow.getHours() + ":" + timeNow.getMinutes() + " | " + time.split(":")[0] + ":" + time.split(":")[1])
+    return true
+  } else {
+    return false
+  }
 }
 
 export function toHoursAndMinutes(totalMinutes) {

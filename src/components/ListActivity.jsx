@@ -12,7 +12,7 @@ import EditActivity from './EditActivity'
 import editing from '../assets/icons/edit.svg'
 import { SvgXml } from 'react-native-svg'
 
-const ListActivity = ({name,timestart, icon}) => {
+const ListActivity = ({name,timestart, icon, idActivity}) => {
   const [modalEdit, setModalEdit] = useState(false);
 
   return (
@@ -62,10 +62,11 @@ const ListActivity = ({name,timestart, icon}) => {
         // bgColor={'#878AF5'}
         borderWidth={3}
         borderColor={'#878AF5'}
+        style={{right: 130}}
       >
         {/* <MaterialCommunityIcons name="check" size={24} color="#fff" /> */}
       </Box>
-      {modalEdit && <EditActivity modalEdit={modalEdit} setModalEdit={setModalEdit}/>}
+      {modalEdit && <EditActivity idActivity={idActivity} modalEdit={modalEdit} setModalEdit={setModalEdit}/>}
     </View>
   )
 }

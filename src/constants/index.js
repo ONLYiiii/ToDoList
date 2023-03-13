@@ -1,7 +1,5 @@
 export {imageDataSignIn as Image} from './mocks';
 export {selectedDate as NewDate} from './mocks';
-export {newTimeSelected as NewTime} from './mocks'
+export {newDateStrip as NewDateStrip} from './mocks'
 export {iconActivity as IconActivity} from './mocks'
-export {newSelectIconActivity as NewIconActivity} from './mocks'
-export {default as newTextActivity} from './mocks'
 export {THEME as light} from './light';

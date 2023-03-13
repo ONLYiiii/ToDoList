@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-undef */
 import {useState} from 'react'
 import {
@@ -7,6 +8,7 @@ import {
   View,
   Button,
   VStack,
+  Pressable
 } from 'native-base'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 
@@ -18,47 +20,39 @@ import {
   CreateActivitySelectIcon
 } from '../components'
 import { useData, useTheme } from '../hooks'
-import { useNavigation } from '@react-navigation/native';
+// import { useNavigation } from '@react-navigation/native';
 import { SvgXml } from 'react-native-svg';
 
-const HomeScreen = () => {
+const HomeScreen = ({navigation}) => {
   const {icons} = useTheme()
-  const {newDate, activity} = useData()
-  const navigation = useNavigation()
-  // console.log(activity)
+  const { activity, dateStripSelect} = useData()
+  // console.log(dateStripSelect)
   const [showCalendar, setShowCalendar] = useState(false)
   const [showSelectIcon, setShowSelectIcon] = useState(false)
 
   return (
     <Background>
       <View
-        mt={2}
-        w={'90%'}
+        mt={10}
+        w={'20%'}
+        position={'absolute'}
+        zIndex={4}
+        right={5}
         flexDirection={'row'}
-        alignItems={'center'}
-        justifyContent={'space-between'}>
-        <Text
-          fontSize={30}
-          lineHeight={47}
-          fontFamily={'Sarabun-Bold'}
-        >
-          {newDate.monthText}
-        </Text>
-        <View flexDirection={'row'}>
-          <MaterialCommunityIcons 
-            name="calendar-multiselect"
-            size={36}
-            color="#666AF6"
-            onPress={() => setShowCalendar(true)}
-            style={{marginRight: 4}}
-          />
+      >
+        <View flexDirection={'row'} style={{alignSelf: 'flex-end', padding: 5}}>
+            <MaterialCommunityIcons 
+              name="calendar-multiselect"
+              size={36}
+              color="#666AF6"
+              onPress={() => setShowCalendar(true)}  
+              style={{marginRight: 4}}
+            />
           <MaterialCommunityIcons
             name="inbox"
             size={36}
             color="#666AF6" 
-            onPress={() => navigation.navigate('CreateAcitivityTest', {
-              ModalVisiable: true
-            })}
+            onPress={() => setShowSelectIcon(true)}
           />
         </View>
       </View>
@@ -68,7 +62,7 @@ const HomeScreen = () => {
       
       {/* List Activity */}
       <Box 
-        mt={3}
+        mt={5}
         w={'100%'}
         pt={7}
         px={5}
@@ -78,11 +72,11 @@ const HomeScreen = () => {
         borderTopRightRadius={25}
         shadow={9}
       >
-        <VStack direction={'column-reverse'}>
+        <VStack direction={'column-reverse'} style={{position: 'absolute', alignSelf: 'center', left: 10, top: 30}}>
           {activity.map((item, index, array) => (
-            <View key={index}>
-              {index+1 != array.length && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
-              <ListActivity name={item.name} timestart={item.timestart} icon={item.icon} />
+            (dateStripSelect.dateStrip == item.dateAt) && <View key={index}>
+              <ListActivity name={item.name} timestart={item.timestart} icon={item.icon} idActivity={item.id} />
+              {index != array.length  && <View style={{ height: 80, backgroundColor: '#dbdbdb',width:2, marginLeft: 75}}/>}
             </View>
           ))}
         </VStack>
@@ -115,7 +109,7 @@ const HomeScreen = () => {
           shadow={5}
           pt={4}
           bottom={0}
-          onPress={() => navigation.navigate('HomeScreen')}
+          // onPress={() => navigation.replace('HomeScreen')}
         >
           <Image
             resizeMode={"contain"}

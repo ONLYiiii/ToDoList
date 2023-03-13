@@ -1,32 +1,36 @@
+/* eslint-disable react/prop-types */
 import { useState, useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import ScrollPicker from "react-native-wheel-scrollview-picker";
-import { hourData, minuteData, checkTimeSelected } from '../utils/timeScrollPicker';
+import { hourData, minuteData } from '../utils/timeScrollPicker';
 
-// eslint-disable-next-line react/prop-types
-export default function ScrollTimePicker({mode, color, warpperColor, handlerCreateActivity}) {
-  const [timeValue, setTimeValue] = useState({
-    hour: "00",
-    minute: "00"
-  });
+export default function ScrollTimePicker({mode, color, warpperColor, handlerCreateActivity, timestartEdit}) {
+  const [timeHour, setTimeHour] = useState("00")
+  const [timeMinute, setTimeMinute] = useState("00")
+  // const [timeValue, setTimeValue] = useState({
+  //   hour: "00",
+  //   minute: "00"
+  // });
 
-  const handlerTimeSelectHour = (value) => {
-    setTimeValue(prevState => {
-      return { ...prevState, hour: value}
-    });
-  };
+  // const handlerTimeSelectHour = (value) => {
+  //   setTimeValue(prevState => {
+  //     return { ...prevState, hour: value}
+  //   });
+  // };
 
-  const handlerTimeSelectMinute = (value) => {
-    setTimeValue(prevState => {
-      return { ...prevState, minute: value}
-    });
-  };
+  // const handlerTimeSelectMinute = (value) => {
+  //   setTimeValue(prevState => {
+  //     return { ...prevState, minute: value}
+  //   });
+  // };
+
   useEffect(() => {
+    // console.log(timeValue.minute)
     mode == "timestart" ?
-      handlerCreateActivity("timestart", `${timeValue.hour}:${timeValue.minute}`)
+      handlerCreateActivity("timestart", `${timeHour}:${timeMinute}`)
     : 
-      handlerCreateActivity("howlong", `${(Number(timeValue.hour) * 60) + Number(timeValue.minute)}`)
-  }, [timeValue])
+      handlerCreateActivity("howlong", `${(Number(timeHour) * 60) + Number(timeMinute)}`)
+  }, [timeHour, timeMinute])
   
 
   return (
@@ -40,7 +44,8 @@ export default function ScrollTimePicker({mode, color, warpperColor, handlerCrea
           renderItem={(data, index, isSelected) => (
             <Text style={isSelected && { color: color }}>{data}</Text>
           )}
-          onValueChange={(data, selectedIndex) => handlerTimeSelectHour(data)}
+          selectedIndex={timestartEdit ? timestartEdit.split(':')[0] : 0}
+          onValueChange={(data) => setTimeHour(data)}
           wrapperHeight={180}
           wrapperWidth={150}
           wrapperColor={warpperColor}
@@ -56,7 +61,8 @@ export default function ScrollTimePicker({mode, color, warpperColor, handlerCrea
             renderItem={(data, index, isSelected) => (
               <Text style={isSelected && { color: color }}>{data}</Text>
             )}
-            onValueChange={(data, selectedIndex) => handlerTimeSelectMinute(data)}
+            selectedIndex={timestartEdit ? timestartEdit.split(':')[1] : 0}
+            onValueChange={(data) => setTimeMinute(data)}
             wrapperHeight={180}
             wrapperWidth={150}
             wrapperColor={warpperColor}
@@ -68,6 +74,3 @@ export default function ScrollTimePicker({mode, color, warpperColor, handlerCrea
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-});
