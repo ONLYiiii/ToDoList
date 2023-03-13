@@ -31,10 +31,10 @@ export function getFormatDateFromCalendar(date) {
   }
 }
 
-export function checkTimeSelected(time) {
+export function checkTimeSelected(time, date) {
   const timeNow = new Date()
-  if(+timeNow.getHours() < +time.split(":")[0] || (+timeNow.getHours() == +time.split(":")[0] && +timeNow.getMinutes() < +time.split(":")[1])) {
-    // console.log("true | " + timeNow.getHours() + ":" + timeNow.getMinutes() + " | " + time.split(":")[0] + ":" + time.split(":")[1])
+  if((+timeNow.getHours() < +time.split(":")[0] || (+timeNow.getHours() == +time.split(":")[0] && +timeNow.getMinutes() < +time.split("S:")[1])) && date >= moment().format("YYYY-MM-DD")) {
+    console.log("true | " + timeNow.getHours() + ":" + timeNow.getMinutes() + " | " + time.split(":")[0] + ":" + time.split(":")[1] + " :: " + date + " " + moment().format("YYYY-MM-DD"))
     return true
   } else {
     return false

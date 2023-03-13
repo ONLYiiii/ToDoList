@@ -37,7 +37,7 @@ const CreateScreen = ({ route }) => {
   }
 
   function handleSubmitCreateActivity() {
-    if (checkTimeSelected(activityData.timestart) == true) {
+    if (checkTimeSelected(activityData.timestart, activityData.dateAt) == true) {
       console.log("create!!", checkTimeSelected(activityData.timestart))
       if (isEditing) {
         updateActivity(selectedActivity.id,activityData)
