@@ -43,6 +43,7 @@ const CreateScreen = ({ route }) => {
         updateActivity(selectedActivity.id,activityData)
       } else {
         addActivity(activityData)
+        console.log(activityData.dateAt)
       }
       navigation.replace('HomeScreen')
     } else { 
