@@ -56,16 +56,6 @@ const ListActivity = ({name,timestart, icon, idActivity}) => {
           <SvgXml stroke={'#F5A912'} width={40} height={40} xml={editing} />
         </Button>
         </View>
-      <Box 
-        boxSize={30}
-        borderRadius={'full'}
-        // bgColor={'#878AF5'}
-        borderWidth={3}
-        borderColor={'#878AF5'}
-        style={{right: 130}}
-      >
-        {/* <MaterialCommunityIcons name="check" size={24} color="#fff" /> */}
-      </Box>
       {modalEdit && <EditActivity idActivity={idActivity} modalEdit={modalEdit} setModalEdit={setModalEdit}/>}
     </View>
   )

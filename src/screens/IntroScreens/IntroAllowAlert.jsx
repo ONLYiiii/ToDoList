@@ -5,6 +5,7 @@ import {
   Container, 
   Button,
   Pressable,
+  View
 } from "native-base";
 
 import { useNavigation } from "@react-navigation/native";
@@ -18,39 +19,30 @@ const IntroAllowAlert = ({nextStep}) => {
     <Box w={'100%'} h={'100%'} alignItems={'center'}>
       <Container mt={6} w={'100%'}>
         <Text
+          alignItems={'center'}
           fontSize={44}
           fontFamily={'Kanit-SemiBold'}
           textAlign={'center'}
         >
-          ให้ฉัน
-          <Text color={'#666AF6'}>
-            เตือน
-          </Text>
-          คุณ
+          {'   '}รายชื่อสมาชิก
         </Text>
 
-        <Text mt={1} fontSize={18} fontWeight={500}>
-          คุณต้องการรับการแจ้งเตือนเกี่ยวกับงานหรือไม่
-        </Text>
       </Container>
 
-      <Image 
-        source={assets.IntroAlert}
-        alt="Get Started"
-        style={{ marginTop: 10 }}
-        width={sizes.width *0.7}
-        resizeMode="contain"
-      />
-
-      <Text 
-        fontSize={16}
+      <View style={{flexDirection: 'column'}}>
+        <Text 
+        fontSize={20}
         fontWeight={500}
         textAlign={'center'}
         marginBottom={3}
         width={'80%'}
       >
-        คุณสามารถปรับการแจ้งเตือนได้ในตั้งค่าคุณจะไม่ถูกสแปม
+        นางสาว นิจวรีย๋ บุญเอื้อ 6321602647{'\n'}
+        นาย จตุพัฒน์ บุญนิยม 6321602558{'\n'}
+        นาย ศิวัช จันวิลัย 6321610178
       </Text>
+      </View>
+      
 
       <Button 
         backgroundColor={"#666AF6"}
@@ -65,20 +57,8 @@ const IntroAllowAlert = ({nextStep}) => {
         _hover={{backgroundColor: "#666AF6"}}
         onPress={() => navigation.navigate('SignInScreen')}
       >
-        อนุญาตการแจ้งเตือน
+        ต่อไป
       </Button>
-      <Pressable onPress={nextStep}>
-        <Text 
-          mt={5}
-          fontSize={20}
-          fontFamily={'Sarabun-SemiBold'}
-          textAlign={'center'}
-          marginBottom={3}
-          width={'80%'}
-        >
-          ข้ามไปก่อน
-        </Text>
-      </Pressable>
     </Box>
   )
 }
@@ -86,7 +66,7 @@ const IntroAllowAlert = ({nextStep}) => {
   //   marginTop: 15,
   //   alignSelf: 'center',
   //   borderRadius: 50,
-  //   width: '30%',
+  //   width: '30%'ห,
   //   height: '15%'
   // }
 

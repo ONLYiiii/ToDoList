@@ -5,6 +5,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons'; 
 import { FontAwesome } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons'; 
+import IntroScreen from './IntroScreen';
 
 const SettingsScreen = ({ navigation }) => {
     return (
@@ -74,9 +75,11 @@ const SettingsScreen = ({ navigation }) => {
                 <View style={styles.line3}/>
             </View>
             <View style={{alignItems: 'center',marginTop: 20}}>
+              <TouchableOpacity onPress={() => navigation.replace("SignInScreen")}>
                 <View style={styles.ButtonLogout}>
                     <Text style={{color: '#ffffff',fontFamily: 'Kanit-SemiBold',fontSize: 20}}>ออกจากระบบ</Text>
                 </View>
+              </TouchableOpacity>
                 
             </View>
         </View>
